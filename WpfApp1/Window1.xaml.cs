@@ -17,13 +17,12 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 
-
 namespace Interactive_Sort
 {
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Window1 : Window
     {
         /// <summary>For determinate number of buttons and count generation rainbow colors </summary>
         static int ArraySize = 65;
@@ -46,7 +45,7 @@ namespace Interactive_Sort
         }
 
         /// <summary> Class of methods, creating buttons and work with their colors </summary>
-        internal class ButtonRainbow : MainWindow
+        internal class ButtonRainbow : Window1
         {
             /// <summary> Serial struct colours of rainbow </summary>
             private static ClrsOfRnbw64[] clrsOfRnbw64 = new ClrsOfRnbw64[ArraySize];
@@ -352,9 +351,11 @@ namespace Interactive_Sort
 
         }
 
-        public MainWindow()
+        public Window1()
         {
             InitializeComponent();
+            //don't need in non main window?
+            //InitializeComponent(); /
             //ButtonRainbow BtnRnbw = new ButtonRainbow(canvas1);
 
         }
@@ -403,7 +404,7 @@ namespace Interactive_Sort
                 {
                     Button a = temp_obj.GetButtons(i);
                     //canvas1.Children.Remove(a);
-                    a.Width = (Windows2.canvas1.ActualWidth - 80) / (ArraySize - 1);
+                    a.Width = (canvas1.ActualWidth - 80) / (ArraySize - 1);
                     Canvas.SetLeft(a, 40 + (a.Width * (i - 1)));
                     //canvas1.Children.Add(a);
                 }
