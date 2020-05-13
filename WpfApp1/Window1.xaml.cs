@@ -19,11 +19,11 @@ using System.Windows.Shapes;
 
 namespace Interactive_Sort
 {
-    /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
-    /// </summary>
+    
     public partial class Window1 : Window
     {
+        public string description1 = "Представлены 2 алгоритма сортировки: сортировка вставками и что-то еще";
+
         /// <summary>For determinate number of buttons and count generation rainbow colors </summary>
         static int ArraySize = 65;
 

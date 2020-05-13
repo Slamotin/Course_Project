@@ -19,6 +19,10 @@ namespace WpfApp1
     /// </summary>
     public partial class Window2 : Window
     {
+        //Insert here your description 
+        public string description2 = "";
+
+
         public Window2()
         {
             InitializeComponent();
