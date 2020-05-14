@@ -6,8 +6,13 @@
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
-        Loaded="Window_Loaded">
+        Loaded="Window_Loaded"
+        Closing="Window_Closing">
     <Grid Background="Azure">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="31*"/>
+            <ColumnDefinition Width="13*"/>
+        </Grid.ColumnDefinitions>
         <Button x:Name="Window1_Button" Content="Сортировки" HorizontalAlignment="Left" Background="DarkRed" BorderThickness="0" Height="44" 
                 Margin="64,74,0,0" VerticalAlignment="Top" Width="152" Click="Window1_Button_Click" MouseMove="Window_Button_MouseMove"/>
 
@@ -18,9 +23,9 @@
                 Margin="64,193,0,0" VerticalAlignment="Top" Width="152" Click="Window3_Button_Click" PreviewMouseMove="Window_Button_MouseMove" />
 
         <TextBox x:Name="description_Box1" HorizontalAlignment="Left" Height="163" Margin="355,74,0,0" Text="Описание алгоритма" TextWrapping="Wrap" VerticalAlignment="Top" 
-                 Width="402" BorderThickness="0" Background="Azure" />
+                 Width="402" BorderThickness="0" Background="Azure" Grid.ColumnSpan="2" />
         <Button x:Name="Exit_button1" Content="Выход" Background="Azure" HorizontalAlignment="Left" 
-                Height="23" Margin="660,351,0,0" VerticalAlignment="Top" Width="97" Click="Exit_button_Click" BorderBrush="DeepSkyBlue"/>
+                Height="23" Margin="102.15,351,0,0" VerticalAlignment="Top" Width="97" Click="Exit_button_Click" BorderBrush="DeepSkyBlue" Grid.Column="1"/>
     </Grid>
 
 </Window>
