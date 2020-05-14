@@ -14,13 +14,13 @@
             <ColumnDefinition Width="13*"/>
         </Grid.ColumnDefinitions>
         <Button x:Name="Window1_Button" Content="Сортировки" HorizontalAlignment="Left" Background="DarkRed" BorderThickness="0" Height="44" 
-                Margin="64,74,0,0" VerticalAlignment="Top" Width="152" Click="Window1_Button_Click" MouseMove="Window_Button_MouseMove"/>
+                Margin="64,74,0,0" VerticalAlignment="Top" Width="152" Click="Window_Button_Click" MouseMove="Window_Button_MouseMove"/>
 
         <Button x:Name="Window2_Button" Content="Деревья" HorizontalAlignment="Left" Background="LightGreen" BorderThickness="0" Height="44" 
-                Margin="64,133,0,0" VerticalAlignment="Top" Width="152" Click="Window2_Button_Click" PreviewMouseMove="Window_Button_MouseMove"/>
+                Margin="64,133,0,0" VerticalAlignment="Top" Width="152" Click="Window_Button_Click" PreviewMouseMove="Window_Button_MouseMove"/>
 
         <Button x:Name="Window3_Button" Content="Хэш-таблицы" HorizontalAlignment="Left" Background="CadetBlue" BorderThickness="0" Height="44" 
-                Margin="64,193,0,0" VerticalAlignment="Top" Width="152" Click="Window3_Button_Click" PreviewMouseMove="Window_Button_MouseMove" />
+                Margin="64,193,0,0" VerticalAlignment="Top" Width="152" Click="Window_Button_Click" PreviewMouseMove="Window_Button_MouseMove" />
 
         <TextBox x:Name="description_Box1" HorizontalAlignment="Left" Height="163" Margin="355,74,0,0" Text="Описание алгоритма" TextWrapping="Wrap" VerticalAlignment="Top" 
                  Width="402" BorderThickness="0" Background="Azure" Grid.ColumnSpan="2" />

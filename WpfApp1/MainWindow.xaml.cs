@@ -39,19 +39,18 @@ namespace WpfApp1
             //Close();
         }
 
-        private void Window3_Button_Click(object sender, RoutedEventArgs e)
+        private void Window_Button_Click(object sender, RoutedEventArgs e)
         {
-            win3.ShowDialog();
-        }
+            Button my_button = e.Source as Button;
 
-        private void Window2_Button_Click(object sender, RoutedEventArgs e)
-        {
-            win2.ShowDialog();
-        }
+            if (Window1_Button.Content.ToString() == my_button.Content.ToString())
+                win1.ShowDialog();
 
-        private void Window1_Button_Click(object sender, RoutedEventArgs e)
-        {
-            win1.ShowDialog();
+            if (Window2_Button.Content.ToString() == my_button.Content.ToString())
+                win2.ShowDialog();
+
+            if (Window3_Button.Content.ToString() == my_button.Content.ToString())
+                win3.ShowDialog();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
