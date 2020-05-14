@@ -23,7 +23,7 @@ namespace Interactive_Sort
     public partial class Window1 : Window
     {
         public string description1 = "Представлены 2 алгоритма сортировки: сортировка вставками и что-то еще";
-
+        
         /// <summary>For determinate number of buttons and count generation rainbow colors </summary>
         static int ArraySize = 65;
 
@@ -280,7 +280,7 @@ namespace Interactive_Sort
 
                     await Task.Delay(20);
 
-
+                    
                 }
                 return;
             }
@@ -354,8 +354,6 @@ namespace Interactive_Sort
         public Window1()
         {
             InitializeComponent();
-            //don't need in non main window?
-            //InitializeComponent(); /
             //ButtonRainbow BtnRnbw = new ButtonRainbow(canvas1);
 
         }
@@ -372,6 +370,7 @@ namespace Interactive_Sort
             {
                 switch (comboBox1.SelectionBoxItem.ToString())
                 {
+                   
                     case "InsertSort":
                         InsertSort();
                         break;
@@ -393,6 +392,7 @@ namespace Interactive_Sort
         private void Window_Closed(object sender, EventArgs e)
         {
             Close();
+            
         }
 
         private void Canvas1_SizeChanged(object sender, SizeChangedEventArgs e)

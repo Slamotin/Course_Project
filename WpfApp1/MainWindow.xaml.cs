@@ -52,7 +52,7 @@ namespace WpfApp1
         private void Window1_Button_Click(object sender, RoutedEventArgs e)
         {
             if (win1.IsVisible)
-                win1.Close();
+                win1.Hide();
             else
                 win1.Show();
         }
