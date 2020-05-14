@@ -24,8 +24,8 @@ namespace WpfApp1
 
         //Hey, here you need insert your namespace name before your "window" for access
         Window2 win2 = new Window2();
-        Window3 win3 = new Window3();
-        
+        HASH.Window3 win3 = new HASH.Window3();
+
 
         public MainWindow()
         {
@@ -35,26 +35,23 @@ namespace WpfApp1
 
         private void Exit_button_Click(object sender, RoutedEventArgs e)
         {
-            
-            Close();
+            System.Windows.Application.Current.Shutdown();
+            //Close();
         }
 
         private void Window3_Button_Click(object sender, RoutedEventArgs e)
         {
-
+            win3.ShowDialog();
         }
 
         private void Window2_Button_Click(object sender, RoutedEventArgs e)
         {
-
+            win2.ShowDialog();
         }
 
         private void Window1_Button_Click(object sender, RoutedEventArgs e)
         {
-            if (win1.IsVisible)
-                win1.Close();
-            else
-                win1.Show();
+            win1.ShowDialog();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -81,8 +78,12 @@ namespace WpfApp1
                 description_Box1.Text = win3.description3;
 
         }
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            System.Windows.Application.Current.Shutdown();
+        }
 
-   
+
     }
 
 

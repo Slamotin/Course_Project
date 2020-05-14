@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-//namespace WpfApp1
+//namespace HASH
 //{
 //    /// <summary>
 //    /// Логика взаимодействия для Window3.xaml
@@ -27,7 +27,7 @@ using System.Windows.Shapes;
 //    }
 //}
 
-namespace WpfApp1
+namespace HASH
 {
     /// <summary>
     /// Interaction logic for Window3.xaml
@@ -322,6 +322,11 @@ namespace WpfApp1
             }
 
             button1.IsEnabled = button2.IsEnabled = true;
+        }
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            e.Cancel = true;
+            Hide();
         }
     }
 }
