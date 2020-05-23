@@ -25,7 +25,7 @@ namespace Interactive_Sort
         public string description1 = "Представлены 2 алгоритма сортировки: сортировка вставками и сортировка пузырьком";
         
         /// <summary>For determinate number of buttons and count generation rainbow colors </summary>
-        static int ArraySize = 65;
+        static int ArraySize = 30;
 
         //index need for button0 work, need to rework start sort
         int index = 0;
@@ -217,6 +217,7 @@ namespace Interactive_Sort
                 return ret;
             }
 
+
             /// <summary>
             /// Create Buttons with random colors
             /// </summary>
@@ -224,9 +225,9 @@ namespace Interactive_Sort
             /// <returns></returns>
             public async Task CreateButtons(Canvas canvas1)
             {
-                // Create a random non-repeatable array for mixing rainbow
+                /*// Create a random non-repeatable array for mixing rainbow
                 Random_Rainbow_Array = Non_RepeatingRandom(1, ArraySize - 1, ArraySize);
-
+                */
                 for (int i = 1; i <= ArraySize - 1; i++)
                 {
                     // _rand.Next(64)
@@ -287,18 +288,59 @@ namespace Interactive_Sort
 
         }
 
+        public int[] Random_Array;
+    
+
+        //Start to create buttons, if buttons was created, start sort (need to rework on 2 and more sort alg)
+        private async void Button0_Click(object sender, RoutedEventArgs e)
+        {
+       
+            //label5.Content += " " + comboBox1.SelectionBoxItem.ToString();
+
+            //index=0 when program starting
+            if (index == 1)
+            {
+                index = 0;
+                textOnButton0.Text = "Build new Rainbow";
+                switch (comboBox1.SelectionBoxItem.ToString())
+                {
+                    case "InsertSort":
+                        InsertSort();
+                        break;
+                    case "BubbleSort":
+                        BubbleSort();
+                        break;
+                }
+
+            }
+            else
+            {
+                //Object of ButtonRaindbow class
+                ButtonRainbow RnbwBtn = new ButtonRainbow();
+                Random_Array = RnbwBtn.Random_Rainbow_Array;
+                await RnbwBtn.CreateButtons(canvas1);
+                //ChangeColor();
+                index = 1;
+                textOnButton0.Text = "Start";
+            }
+            e.Handled = true;
+            //CreateButtons();
+            //InsertSort();
+
+        }
+
         public async void InsertSort()
         {
             //Object of ButtonRaindbow class
             ButtonRainbow RnbwBtn = new ButtonRainbow();
-            int[] Temp_Array = RnbwBtn.Random_Rainbow_Array;
+            int[] Temp_Array = Random_Array;
+            
 
-            for (int i = 1; i < Temp_Array.Length; i++)
+            /*for (int i = 1; i < Temp_Array.Length; i++)
             {
-                //Label label5 = new Label();
                 string b = (string)label5.Content;
                 label5.Content = b + " " + Temp_Array[i];
-            }
+            }*/
             for (int i = 1; i < Temp_Array.Length; i++)
             {
                 label1.Content = i;
@@ -344,7 +386,7 @@ namespace Interactive_Sort
                     */
 
                     //Delay between iterations
-                    await Task.Delay(1);
+                    await Task.Delay(1000);
                 }
 
             }
@@ -354,14 +396,15 @@ namespace Interactive_Sort
         //сортировка пузырьком
         public async void BubbleSort()
         {
+            
             ButtonRainbow rainbow = new ButtonRainbow();
             int[] arr = rainbow.Random_Rainbow_Array;
             int temp;
-            for (int i = 1; i < arr.Length; i++)
+            /*for (int i = 1; i < arr.Length; i++)
             {
                 string b = (string)label5.Content;
                 label5.Content = b + " " + arr[i];
-            }
+            }*/
             for (int i = 0; i < arr.Length; i++)
             {
                 label1.Content = i;
@@ -390,39 +433,6 @@ namespace Interactive_Sort
 
         }
 
-
-
-        //Start to create buttons, if buttons was created, start sort (need to rework on 2 and more sort alg)
-        private async void Button0_Click(object sender, RoutedEventArgs e)
-        {
-            //label5.Content += " " + comboBox1.SelectionBoxItem.ToString();
-            //Object of ButtonRaindbow class
-            ButtonRainbow RnbwBtn = new ButtonRainbow();
-            if (index == 1)
-            {
-                switch (comboBox1.SelectionBoxItem.ToString())
-                {
-                    case "InsertSort":
-                        InsertSort();
-                        break;
-                    case "BubbleSort":
-                        BubbleSort();
-                        break;
-                }
-            }
-            else
-            {
-                await RnbwBtn.CreateButtons(canvas1);
-                //ChangeColor();
-            }
-            index = 1;
-            e.Handled = true;
-            //CreateButtons();
-
-            //InsertSort();
-
-        }
-
         private void Window_Closed(object sender, EventArgs e)
         {
             Close();
@@ -445,25 +455,6 @@ namespace Interactive_Sort
             }
 
         }
-
-        /* public async Task ChangeColor()
-         {
-             for (int i = 1; i <= 64; i += 1)
-             {
-
-                 button0.Foreground = new SolidColorBrush(
-                     System.Windows.Media.Color.FromArgb(
-                         255,
-                     (byte)clrsOfRnbw64[i].r,
-                     (byte)clrsOfRnbw64[i].g,
-                     (byte)clrsOfRnbw64[i].b));
-                 //Canvas.
-
-                 await Task.Delay(100);
-                 //button1.Foreground = new SolidColorBrush(Color.FromRgb(2, 2, 2));
-             }
-
-         }*/
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {

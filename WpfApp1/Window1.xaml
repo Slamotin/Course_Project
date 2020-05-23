@@ -51,8 +51,8 @@
                 <ComboBoxItem IsSelected="True">InsertSort</ComboBoxItem>
 				<ComboBoxItem IsSelected="True">BubbleSort</ComboBoxItem>
             </ComboBox>
-            <Label x:Name="label4" Grid.Row="1" Content="d" Canvas.Left="5" Canvas.Top="5" Visibility="Hidden"/>
-            <Label x:Name="label5" Grid.Row="2" Content="d" Canvas.Left="5" Canvas.Top="405"/>
+            <Label x:Name="label4" Grid.Row="1" Content="" Canvas.Left="5" Canvas.Top="5" Visibility="Hidden"/>
+            <Label x:Name="label5" Grid.Row="2" Content="" Canvas.Left="5" Canvas.Top="405"/>
         </Grid>
     </Canvas>
 
