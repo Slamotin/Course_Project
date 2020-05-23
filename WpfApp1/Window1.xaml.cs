@@ -23,14 +23,12 @@ namespace Interactive_Sort
     public partial class Window1 : Window
     {
         public string description1 = "Представлены 3 алгоритма сортировки: сортировка вставками, сортировка пузырьком и шейкерная сортировка";
-        
+
         /// <summary>For determinate number of buttons and count generation rainbow colors </summary>
         static int ArraySize;
         int Creating_Delay;
         int Sorting_Delay;
 
-        //index need for button0 work, need to rework start sort
-        int index = 0;
         ///<summary>This struct contains colors of rainbow (from red to violet) with some step</summary>
         public struct ClrsOfRnbw64
         {
@@ -301,7 +299,6 @@ namespace Interactive_Sort
         private async void Button0_Click(object sender, RoutedEventArgs e)
         {
             button0.IsEnabled = false;
-            index = 0;
 
             ButtonRainbow RnbwBtn = new ButtonRainbow(ArraySize);
             Random_Array = RnbwBtn.Random_Rainbow_Array;
@@ -315,6 +312,8 @@ namespace Interactive_Sort
         private void button1_Click(object sender, RoutedEventArgs e)
         {
             button1.IsEnabled = false;
+            label1.Content = "0";
+            label3.Content = "0";
             switch (comboBox1.SelectionBoxItem.ToString())
             {
                 case "InsertSort":
@@ -327,10 +326,6 @@ namespace Interactive_Sort
                     ShakerSort();
                     break;
             }
-            label1.Content = "0";
-            label3.Content = "0";
-            index = 1;
-
             e.Handled = true;
         }
  
