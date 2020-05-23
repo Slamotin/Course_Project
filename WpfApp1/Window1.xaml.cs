@@ -25,7 +25,9 @@ namespace Interactive_Sort
         public string description1 = "Представлены 2 алгоритма сортировки: сортировка вставками и сортировка пузырьком";
         
         /// <summary>For determinate number of buttons and count generation rainbow colors </summary>
-        static int ArraySize = 30;
+        static int ArraySize;
+        int Creating_Delay;
+        int Sorting_Delay;
 
         //index need for button0 work, need to rework start sort
         int index = 0;
@@ -73,12 +75,18 @@ namespace Interactive_Sort
 
             /// <summary> Constructor for work with method on canvas </summary>
             /// I save it for myself, do not delete them, now canvas1 transmit to CreateButtons() method 
-            public ButtonRainbow(Canvas canv)
+            public ButtonRainbow(int NewArraySize)
             {
-                GenerateColoursOfRainbow(ArraySize);
-                Random_Rainbow_Array = Non_RepeatingRandom(1, ArraySize - 1, ArraySize);
+                clrsOfRnbw64 = new ClrsOfRnbw64[NewArraySize];
+                Random_Rainbow_Array = new int[NewArraySize];
+                _buttons = new Button[NewArraySize];
+
+                GenerateColoursOfRainbow(NewArraySize);
+                Random_Rainbow_Array = Non_RepeatingRandom(1, NewArraySize - 1, NewArraySize);
                 //CreateButtons(canv);
             }
+
+            
 
             /// <summary> Return button object with determine button </summary>
             public Button GetButtons(int NumberOfButton)
@@ -217,7 +225,6 @@ namespace Interactive_Sort
                 return ret;
             }
 
-
             /// <summary>
             /// Create Buttons with random colors
             /// </summary>
@@ -228,7 +235,8 @@ namespace Interactive_Sort
                 /*// Create a random non-repeatable array for mixing rainbow
                 Random_Rainbow_Array = Non_RepeatingRandom(1, ArraySize - 1, ArraySize);
                 */
-                for (int i = 1; i <= ArraySize - 1; i++)
+
+                for (int i = 1; i <= _buttons.Length - 1; i++)
                 {
                     // _rand.Next(64)
 
@@ -279,7 +287,7 @@ namespace Interactive_Sort
                     Canvas.SetLeft(_labels3[i], 40 + (20 * (i - 1)) - 1);
                     canvas1.Children.Add(_labels3[i]);*/
 
-                    await Task.Delay(20);
+                    await Task.Delay(Creating_Delay);
 
                     
                 }
@@ -289,7 +297,6 @@ namespace Interactive_Sort
         }
 
         public int[] Random_Array;
-    
 
         //Start to create buttons, if buttons was created, start sort (need to rework on 2 and more sort alg)
         private async void Button0_Click(object sender, RoutedEventArgs e)
@@ -316,7 +323,9 @@ namespace Interactive_Sort
             else
             {
                 //Object of ButtonRaindbow class
-                ButtonRainbow RnbwBtn = new ButtonRainbow();
+                label1.Content = "0";
+                label3.Content = "0";
+                ButtonRainbow RnbwBtn = new ButtonRainbow(ArraySize);
                 Random_Array = RnbwBtn.Random_Rainbow_Array;
                 await RnbwBtn.CreateButtons(canvas1);
                 //ChangeColor();
@@ -386,7 +395,7 @@ namespace Interactive_Sort
                     */
 
                     //Delay between iterations
-                    await Task.Delay(500);
+                    await Task.Delay(Sorting_Delay);
                 }
 
             }
@@ -420,7 +429,7 @@ namespace Interactive_Sort
                         rainbow.SetRGBColorForButton(i, arr);
 
                         label3.Content = Int32.Parse(label3.Content.ToString()) + 1;
-                        await Task.Delay(1);
+                        await Task.Delay(Sorting_Delay);
                     }
                 }
             }
@@ -462,5 +471,22 @@ namespace Interactive_Sort
             Hide();
         }
 
+        private void CreateDelayText_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (CreateDelayText.Text != "")
+                Creating_Delay = int.Parse(CreateDelayText.Text);
+        }
+
+        private void SortingDelayText_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (SortingDelayText.Text != "")
+                Sorting_Delay = int.Parse(SortingDelayText.Text);
+        }
+
+        private void CreatingSize_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (CreatingSize.Text != "")
+                ArraySize = int.Parse(CreatingSize.Text);
+        }
     }
 }
