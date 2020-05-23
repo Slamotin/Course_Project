@@ -22,7 +22,7 @@ namespace Interactive_Sort
     
     public partial class Window1 : Window
     {
-        public string description1 = "Представлены 2 алгоритма сортировки: сортировка вставками и что-то еще";
+        public string description1 = "Представлены 2 алгоритма сортировки: сортировка вставками и сортировка пузырьком";
         
         /// <summary>For determinate number of buttons and count generation rainbow colors </summary>
         static int ArraySize = 65;
@@ -351,6 +351,38 @@ namespace Interactive_Sort
 
         }
 
+        //сортировка пузырьком
+        public async void BubbleSort()
+        {
+            ButtonRainbow rainbow = new ButtonRainbow();
+            int[] arr = rainbow.Random_Rainbow_Array;
+            int temp;
+            for (int i = 1; i < arr.Length; i++)
+            {
+                string b = (string)label5.Content;
+                label5.Content = b + " " + arr[i];
+            }
+            for (int i = 0; i < arr.Length; i++)
+            {
+                label1.Content = i;
+                for (int j = i + 1; j < arr.Length; j++)
+                {
+                    if (arr[i] > arr[j])
+                    {
+                        temp = arr[i];
+                        arr[i] = arr[j];
+                        arr[j] = temp;
+
+                        rainbow.SetRGBColorForButton(j, arr);
+                        rainbow.SetRGBColorForButton(i, arr);
+
+                        label3.Content = Int32.Parse(label3.Content.ToString()) + 1;
+                        await Task.Delay(1);
+                    }
+                }
+            }
+        }
+
         public Window1()
         {
             InitializeComponent();
@@ -370,9 +402,11 @@ namespace Interactive_Sort
             {
                 switch (comboBox1.SelectionBoxItem.ToString())
                 {
-                   
                     case "InsertSort":
                         InsertSort();
+                        break;
+                    case "BubbleSort":
+                        BubbleSort();
                         break;
                 }
             }
