@@ -43,16 +43,19 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
-            <Button x:Name="button0" Grid.Column="1" Grid.Row="0" MaxHeight="300" Canvas.Left="5" Canvas.Top="358"
+			<Button x:Name="button0" Content="Build Random Rainbow" Grid.Column="1" Grid.Row="0" MaxHeight="300" Canvas.Left="5" Canvas.Top="358"
                 BorderThickness="0" Background="White" Click="Button0_Click">
-                <TextBox x:Name="textOnButton0" TextWrapping="Wrap" BorderThickness="0" Focusable="False" Cursor="Arrow">Build Random Rainbow</TextBox>
-            </Button>
-            <Label Content="Выбор сортировки: " Grid.Column="2" VerticalContentAlignment="Center"/>
+			</Button>
+			<Button x:Name="button1" Content="Start" Grid.Column="1" Grid.Row="1" MaxHeight="300" Canvas.Left="5" Canvas.Top="358"
+                BorderThickness="0" Background="White" IsEnabled="False" Click="button1_Click">
+			</Button>
+			<Label Content="Выбор сортировки: " Grid.Column="2" VerticalContentAlignment="Center"/>
             <ComboBox x:Name="comboBox1" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Height="22" Margin="0,8" Width="87">
                 <ComboBoxItem IsSelected="True">InsertSort</ComboBoxItem>
                 <ComboBoxItem IsSelected="True">BubbleSort</ComboBoxItem>
+				<ComboBoxItem IsSelected="True">ShakerSort</ComboBoxItem>
             </ComboBox>
-            <Label x:Name="label4" Grid.Row="1" Content="" Visibility="Hidden"/>
+            
             <Label x:Name="label5" Grid.Row="2" Content="" />
             <TextBlock x:Name="CreateDelayTextBlock" Grid.Column="2" TextWrapping="Wrap" 
                        Text="Задержка создания радуги " HorizontalAlignment="Left" Width="122" 

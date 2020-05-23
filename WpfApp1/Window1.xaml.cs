@@ -22,7 +22,7 @@ namespace Interactive_Sort
     
     public partial class Window1 : Window
     {
-        public string description1 = "Представлены 2 алгоритма сортировки: сортировка вставками и сортировка пузырьком";
+        public string description1 = "Представлены 3 алгоритма сортировки: сортировка вставками, сортировка пузырьком и шейкерная сортировка";
         
         /// <summary>For determinate number of buttons and count generation rainbow colors </summary>
         static int ArraySize;
@@ -31,7 +31,6 @@ namespace Interactive_Sort
 
         //index need for button0 work, need to rework start sort
         int index = 0;
-
         ///<summary>This struct contains colors of rainbow (from red to violet) with some step</summary>
         public struct ClrsOfRnbw64
         {
@@ -298,45 +297,43 @@ namespace Interactive_Sort
 
         public int[] Random_Array;
 
-        //Start to create buttons, if buttons was created, start sort (need to rework on 2 and more sort alg)
+        //обработчик кнопки build random rainbow
         private async void Button0_Click(object sender, RoutedEventArgs e)
         {
-       
-            //label5.Content += " " + comboBox1.SelectionBoxItem.ToString();
+            button0.IsEnabled = false;
+            index = 0;
 
-            //index=0 when program starting
-            if (index == 1)
-            {
-                index = 0;
-                textOnButton0.Text = "Build new Rainbow";
-                switch (comboBox1.SelectionBoxItem.ToString())
-                {
-                    case "InsertSort":
-                        InsertSort();
-                        break;
-                    case "BubbleSort":
-                        BubbleSort();
-                        break;
-                }
+            ButtonRainbow RnbwBtn = new ButtonRainbow(ArraySize);
+            Random_Array = RnbwBtn.Random_Rainbow_Array;
+            await RnbwBtn.CreateButtons(canvas1);
 
-            }
-            else
-            {
-                //Object of ButtonRaindbow class
-                label1.Content = "0";
-                label3.Content = "0";
-                ButtonRainbow RnbwBtn = new ButtonRainbow(ArraySize);
-                Random_Array = RnbwBtn.Random_Rainbow_Array;
-                await RnbwBtn.CreateButtons(canvas1);
-                //ChangeColor();
-                index = 1;
-                textOnButton0.Text = "Start";
-            }
+            button1.IsEnabled = true;
             e.Handled = true;
-            //CreateButtons();
-            //InsertSort();
-
         }
+
+        //обработчик кнопки start
+        private void button1_Click(object sender, RoutedEventArgs e)
+        {
+            button1.IsEnabled = false;
+            switch (comboBox1.SelectionBoxItem.ToString())
+            {
+                case "InsertSort":
+                    InsertSort();
+                    break;
+                case "BubbleSort":
+                    BubbleSort();
+                    break;
+                case "ShakerSort":
+                    ShakerSort();
+                    break;
+            }
+            label1.Content = "0";
+            label3.Content = "0";
+            index = 1;
+
+            e.Handled = true;
+        }
+ 
 
         public async void InsertSort()
         {
@@ -399,7 +396,7 @@ namespace Interactive_Sort
                 }
 
             }
-
+            button0.IsEnabled = true;
         }
 
         //сортировка пузырьком
@@ -409,11 +406,6 @@ namespace Interactive_Sort
             ButtonRainbow rainbow = new ButtonRainbow();
             int[] arr = Random_Array;
             int temp;
-            /*for (int i = 1; i < arr.Length; i++)
-            {
-                string b = (string)label5.Content;
-                label5.Content = b + " " + arr[i];
-            }*/
             for (int i = 0; i < arr.Length; i++)
             {
                 label1.Content = i;
@@ -433,6 +425,62 @@ namespace Interactive_Sort
                     }
                 }
             }
+            button0.IsEnabled = true;
+        }
+
+
+        //шейкерная сортировка
+        public async void ShakerSort()
+        {
+            ButtonRainbow rainbow = new ButtonRainbow();
+            int[] array = Random_Array;
+            int temp;
+            for (var i = 0; i < array.Length / 2; i++)
+            {
+                label1.Content = i;
+                var swapFlag = false;
+                
+                for (var j = i; j < array.Length - i - 1; j++)
+                {
+                    if (array[j] > array[j + 1])
+                    {
+                        temp = array[j];
+                        array[j] = array[j + 1];
+                        array[j + 1] = temp;
+
+                        swapFlag = true;
+
+                        rainbow.SetRGBColorForButton(j + 1, array);
+                        rainbow.SetRGBColorForButton(j, array);
+
+                        label3.Content = Int32.Parse(label3.Content.ToString()) + 1;
+                    }
+                }
+                
+                for (var j = array.Length - 2 - i; j > i; j--)
+                {
+                    if (array[j - 1] > array[j])
+                    {
+                        temp = array[j-1];
+                        array[j - 1] = array[j];
+                        array[j] = temp;
+
+                        swapFlag = true;
+
+                        rainbow.SetRGBColorForButton(j, array);
+                        rainbow.SetRGBColorForButton(j - 1, array);
+
+                        label3.Content = Int32.Parse(label3.Content.ToString()) + 1;
+                    }
+                }
+                
+                if (!swapFlag)
+                {
+                    break;
+                }
+                await Task.Delay(Sorting_Delay);
+            }
+            button0.IsEnabled = true;
         }
 
         public Window1()
@@ -487,6 +535,9 @@ namespace Interactive_Sort
         {
             if (CreatingSize.Text != "")
                 ArraySize = int.Parse(CreatingSize.Text);
+            button1.IsEnabled = false;
+            button0.IsEnabled = true;
         }
+
     }
 }
