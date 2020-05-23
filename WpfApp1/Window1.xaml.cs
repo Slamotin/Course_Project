@@ -386,7 +386,7 @@ namespace Interactive_Sort
                     */
 
                     //Delay between iterations
-                    await Task.Delay(1000);
+                    await Task.Delay(500);
                 }
 
             }
@@ -398,7 +398,7 @@ namespace Interactive_Sort
         {
             
             ButtonRainbow rainbow = new ButtonRainbow();
-            int[] arr = rainbow.Random_Rainbow_Array;
+            int[] arr = Random_Array;
             int temp;
             /*for (int i = 1; i < arr.Length; i++)
             {
