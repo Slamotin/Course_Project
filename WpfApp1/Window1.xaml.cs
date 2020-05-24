@@ -335,7 +335,7 @@ namespace Interactive_Sort
         public async void InsertSort()
         {
             //Object of ButtonRaindbow class
-            ButtonRainbow RnbwBtn = new ButtonRainbow();
+            ButtonRainbow RnbwBtn = new ButtonRainbow(ArraySize);
             int[] Temp_Array = Random_Array;
             
 
