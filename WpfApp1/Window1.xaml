@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="1000"
+        Title="MainWindow" Height="530" Width="1000"
 		WindowStartupLocation="CenterScreen"
         Closed="Window_Closed"
         Closing="Window_Closing"
@@ -42,6 +42,7 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
+				<RowDefinition Height="28"></RowDefinition>
             </Grid.RowDefinitions>
 			<Button x:Name="button0" Content="Build Random Rainbow" Grid.Column="1" Grid.Row="0" MaxHeight="300" Canvas.Left="5" Canvas.Top="358"
                 BorderThickness="0" Background="White" Click="Button0_Click">
@@ -49,15 +50,19 @@
 			<Button x:Name="button1" Content="Start" Grid.Column="1" Grid.Row="1" MaxHeight="300" Canvas.Left="5" Canvas.Top="358"
                 BorderThickness="0" Background="White" IsEnabled="False" Click="button1_Click">
 			</Button>
+			<Button x:Name="button2" Content="Skip" Grid.Column="1" Grid.Row="2" MaxHeight="300" Canvas.Left="5" Canvas.Top="358"
+                BorderThickness="0" Background="White" IsEnabled="False" Click="button2_Click">
+			</Button>
+			<Button x:Name="button3" Content="Cancel" Grid.Column="1" Grid.Row="3" MaxHeight="300" Canvas.Left="5" Canvas.Top="358"
+                BorderThickness="0" Background="White" IsEnabled="False" Click="button3_Click">
+			</Button>
 			<Label Content="Выбор сортировки: " Grid.Column="2" VerticalContentAlignment="Center"/>
-            <ComboBox x:Name="comboBox1" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Height="22" Margin="0,8" Width="87">
-                <ComboBoxItem IsSelected="True">InsertSort</ComboBoxItem>
-                <ComboBoxItem IsSelected="True">BubbleSort</ComboBoxItem>
+			<ComboBox x:Name="comboBox1" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Height="22" Margin="0,8" Width="87">
+				<ComboBoxItem IsSelected="True">InsertSort</ComboBoxItem>
+				<ComboBoxItem IsSelected="True">BubbleSort</ComboBoxItem>
 				<ComboBoxItem IsSelected="True">ShakerSort</ComboBoxItem>
-            </ComboBox>
-            
-            <Label x:Name="label5" Grid.Row="2" Content="" />
-            <TextBlock x:Name="CreateDelayTextBlock" Grid.Column="2" TextWrapping="Wrap" 
+			</ComboBox>
+			<TextBlock x:Name="CreateDelayTextBlock" Grid.Column="2" TextWrapping="Wrap" 
                        Text="Задержка создания радуги " HorizontalAlignment="Left" Width="122" 
                        Margin="6,36,0,28" Grid.RowSpan="3" RenderTransformOrigin="0.505,0.625"  />
             <TextBlock x:Name="SortingDelayTextBlock" Grid.Row="2" Grid.Column="2" TextWrapping="Wrap" 

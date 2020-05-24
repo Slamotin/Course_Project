@@ -314,6 +314,8 @@ namespace Interactive_Sort
         private void button1_Click(object sender, RoutedEventArgs e)
         {
             button1.IsEnabled = false;
+            button2.IsEnabled = true;
+            button3.IsEnabled = true;
             label1.Content = "0";
             label3.Content = "0";
             switch (comboBox1.SelectionBoxItem.ToString())
@@ -330,7 +332,18 @@ namespace Interactive_Sort
             }
             e.Handled = true;
         }
- 
+
+        //обработчки кнопки skip
+        private void button2_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        //обработчик кнопки cancel
+        private void button3_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
 
         public async void InsertSort()
         {
@@ -532,11 +545,15 @@ namespace Interactive_Sort
 
         private void CreatingSize_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (CreatingSize.Text != "")
-                ArraySize = int.Parse(CreatingSize.Text);
-            button1.IsEnabled = false;
-            button0.IsEnabled = true;
+            int.TryParse(CreatingSize.Text, out ArraySize);
+            if (ArraySize > 2)
+            { 
+                button1.IsEnabled = false;
+                button0.IsEnabled = true;
+            }         
+            else button0.IsEnabled = false;
         }
+
 
     }
 }
