@@ -12,66 +12,58 @@
         >
 
 
-    <Canvas x:Name="canvas1" SizeChanged="Canvas1_SizeChanged" Grid.ColumnSpan="3">
-        <Grid Width="250" HorizontalAlignment="Left" Margin="5">
-            <Grid.ColumnDefinitions >
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
-
-            <Label x:Name="label0" Grid.Column="0" Grid.Row="0" Content="Number of iterations: "/>
-            <Label x:Name="label1" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" Content="0"/>
-            <Label x:Name="label2" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Content="Number of shifts: "/>
-            <Label x:Name="label3" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Content="0"/>
-        </Grid>
-
-        <Grid Canvas.Top="358">
-            <Grid.ColumnDefinitions >
-                <ColumnDefinition ></ColumnDefinition>
-                <ColumnDefinition ></ColumnDefinition>
-                <ColumnDefinition Width="130"></ColumnDefinition>
-                <ColumnDefinition ></ColumnDefinition>
-                <ColumnDefinition ></ColumnDefinition>
-                <ColumnDefinition ></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
+	<Canvas x:Name="canvas1" SizeChanged="Canvas1_SizeChanged" Grid.ColumnSpan="3">
+		<Grid Width="250" HorizontalAlignment="Left" Margin="5">
+			<Grid.ColumnDefinitions >
+				<ColumnDefinition></ColumnDefinition>
+				<ColumnDefinition></ColumnDefinition>
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition></RowDefinition>
 				<RowDefinition></RowDefinition>
 			</Grid.RowDefinitions>
+
+			<Label x:Name="label0" Grid.Column="0" Grid.Row="0" Content="Number of iterations: "/>
+			<Label x:Name="label1" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" Content="0"/>
+			<Label x:Name="label2" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Content="Number of shifts: "/>
+			<Label x:Name="label3" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Content="0"/>
+		</Grid>
+
+		<Grid Canvas.Top="358">
+			<Grid.ColumnDefinitions >
+				<ColumnDefinition ></ColumnDefinition>
+				<ColumnDefinition ></ColumnDefinition>
+				<ColumnDefinition Width="130"></ColumnDefinition>
+				<ColumnDefinition ></ColumnDefinition>
+				<ColumnDefinition ></ColumnDefinition>
+				<ColumnDefinition ></ColumnDefinition>
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="35"></RowDefinition>
+				<RowDefinition Height="30"></RowDefinition>
+				<RowDefinition Height="30"></RowDefinition>
+			</Grid.RowDefinitions>
 			<Button x:Name="button0" Content="Build Random Rainbow" Grid.Column="1" Grid.Row="0" MaxHeight="300" Canvas.Left="5" Canvas.Top="358"
-                BorderThickness="0" Background="White" Click="Button0_Click">
-			</Button>
+                BorderThickness="0" Click="Button0_Click" Background="#FFFE6A42"/>
 			<Button x:Name="button1" Content="Start" Grid.Column="1" Grid.Row="1" MaxHeight="300" Canvas.Left="5" Canvas.Top="358"
-                BorderThickness="0" Background="White" IsEnabled="False" Click="button1_Click">
-			</Button>
+                BorderThickness="0" Background="#FFF7AA41" Click="button1_Click"/>
 			<Button x:Name="SkipButton" Content="Skip" Grid.Column="1" Grid.Row="2" MaxHeight="300" Canvas.Left="5" Canvas.Top="358"
-                BorderThickness="0" Background="White" IsEnabled="False" Click="button2_Click">
-			</Button>
+                BorderThickness="0" Background="#FFEDF570" Visibility="Hidden" Click="button2_Click"/>
 			<Label Content="Выбор сортировки: " Grid.Column="2" VerticalContentAlignment="Center"/>
 			<ComboBox x:Name="comboBox1" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Height="22" Margin="0,8" Width="87">
 				<ComboBoxItem IsSelected="True">InsertSort</ComboBoxItem>
 				<ComboBoxItem IsSelected="True">BubbleSort</ComboBoxItem>
 				<ComboBoxItem IsSelected="True">ShakerSort</ComboBoxItem>
 			</ComboBox>
-			<TextBlock x:Name="CreateDelayTextBlock" Grid.Column="2" TextWrapping="Wrap" 
-                       Text="Задержка создания радуги " HorizontalAlignment="Left" Width="122" 
-                       Margin="6,36,0,28" Grid.RowSpan="3" RenderTransformOrigin="0.505,0.625"  />
-            <TextBlock x:Name="SortingDelayTextBlock" Grid.Row="2" Grid.Column="2" TextWrapping="Wrap" 
+			<TextBlock x:Name="SortingDelayTextBlock" Grid.Row="1" Grid.Column="2" TextWrapping="Wrap" 
                        Text="Задержка сортировки" VerticalAlignment="Center"  Margin="6,0,0,0"/>
-            <TextBox x:Name="CreateDelayText" Grid.Row="1" Grid.Column="3" Text="20" 
-                     TextChanged="CreateDelayText_TextChanged" Margin="0,5,0,4"/>
-            <TextBox x:Name="SortingDelayText" Grid.Row="2" Grid.Column="3" Text="1" 
+			<TextBox x:Name="SortingDelayText" Grid.Row="1" Grid.Column="3" Text="1" 
                      TextChanged="SortingDelayText_TextChanged" Margin="0,5,0,4"/>
-            <TextBlock Grid.Row="0" Grid.Column="4" Text="  Creating Size:  "  
+			<TextBlock Grid.Row="0" Grid.Column="4" Text="  Creating Size:  "  
                        VerticalAlignment="Center" Height="16" Margin="0,10,0,12"/>
-            <TextBox x:Name="CreatingSize" Grid.Row="0" Grid.Column="5" Text="65" 
+			<TextBox x:Name="CreatingSize" Grid.Row="0" Grid.Column="5" Text="65" 
                      TextChanged="CreatingSize_TextChanged"  Margin="0,8,0,9"/>
-        </Grid>
-    </Canvas>
+		</Grid>
+	</Canvas>
 
 </Window>

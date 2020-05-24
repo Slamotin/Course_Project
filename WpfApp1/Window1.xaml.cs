@@ -26,7 +26,6 @@ namespace Interactive_Sort
 
         /// <summary>For determinate number of buttons and count generation rainbow colors </summary>
         static int ArraySize;
-        int Creating_Delay;
         int Sorting_Delay;
         bool Skipflag = false;
         bool PauseFlag = false;
@@ -286,7 +285,7 @@ namespace Interactive_Sort
                     Canvas.SetLeft(_labels3[i], 40 + (20 * (i - 1)) - 1);
                     canvas1.Children.Add(_labels3[i]);*/
 
-                    await Task.Delay(Creating_Delay);
+                    await Task.Delay(1); //создание радуги
 
                     
                 }
@@ -374,6 +373,7 @@ namespace Interactive_Sort
             }*/
             for (int i = 1; i < Temp_Array.Length; i++)
             {
+                SkipButton.Visibility = Visibility.Visible;
                 label1.Content = i;
                 int j = 0;
                 //string a = (string)label4.Content;
@@ -419,8 +419,12 @@ namespace Interactive_Sort
                     //Delay between iterations
                     do
                     {
-                        if(!Skipflag) await Task.Delay(Sorting_Delay);
-                        if (PauseFlag) await Task.Delay(1);
+                        if (!Skipflag) await Task.Delay(Sorting_Delay);
+                        if (PauseFlag)
+                        {
+                            await Task.Delay(1);
+                            SkipButton.Visibility = Visibility.Hidden;
+                        }
                     } while (PauseFlag);
                     
                 }
@@ -434,12 +438,12 @@ namespace Interactive_Sort
         //сортировка пузырьком
         public async void BubbleSort()
         {
-            
             ButtonRainbow rainbow = new ButtonRainbow(ArraySize);
             int[] arr = Random_Array;
             int temp;
             for (int i = 0; i < arr.Length; i++)
             {
+                SkipButton.Visibility = Visibility.Visible;
                 label1.Content = i;
                 for (int j = i + 1; j < arr.Length; j++)
                 {
@@ -456,7 +460,11 @@ namespace Interactive_Sort
                         do
                         {
                             if (!Skipflag) await Task.Delay(Sorting_Delay);
-                            if (PauseFlag) await Task.Delay(1);
+                            if (PauseFlag)
+                            {
+                                await Task.Delay(1);
+                                SkipButton.Visibility = Visibility.Hidden;
+                            }
                         } while (PauseFlag);
                     }
                 }
@@ -470,11 +478,13 @@ namespace Interactive_Sort
         //шейкерная сортировка
         public async void ShakerSort()
         {
+            SkipButton.IsEnabled = true;
             ButtonRainbow rainbow = new ButtonRainbow(ArraySize);
             int[] array = Random_Array;
             int temp;
             for (var i = 0; i < array.Length / 2; i++)
             {
+                SkipButton.Visibility = Visibility.Visible;
                 label1.Content = i;
                 var swapFlag = false;
                 
@@ -495,7 +505,11 @@ namespace Interactive_Sort
                         do
                         {
                             if (!Skipflag) await Task.Delay(Sorting_Delay);
-                            if (PauseFlag) await Task.Delay(1);
+                            if (PauseFlag)
+                            {
+                                await Task.Delay(1);
+                                SkipButton.Visibility = Visibility.Hidden;
+                            }
                         } while (PauseFlag);
                     }
                 }
@@ -517,7 +531,11 @@ namespace Interactive_Sort
                         do
                         {
                             if (!Skipflag) await Task.Delay(Sorting_Delay);
-                            if (PauseFlag) await Task.Delay(1);
+                            if (PauseFlag)
+                            {
+                                await Task.Delay(1);
+                                SkipButton.Visibility = Visibility.Hidden;
+                            }
                         } while (PauseFlag);
                     }
                 }
@@ -529,7 +547,11 @@ namespace Interactive_Sort
                 do
                 {
                     if (!Skipflag) await Task.Delay(Sorting_Delay);
-                    if(PauseFlag) await Task.Delay(1);
+                    if (PauseFlag)
+                    {
+                        await Task.Delay(1);
+                        SkipButton.Visibility = Visibility.Hidden;
+                    }
                 } while (PauseFlag);
             }
             CreatingSize.IsEnabled = true;
@@ -573,16 +595,19 @@ namespace Interactive_Sort
             Hide();
         }
 
-        private void CreateDelayText_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (CreateDelayText.Text != "")
-                Creating_Delay = int.Parse(CreateDelayText.Text);
-        }
-
         private void SortingDelayText_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (SortingDelayText.Text != "")
-                Sorting_Delay = int.Parse(SortingDelayText.Text);
+            int number;
+            int.TryParse(SortingDelayText.Text, out number);
+            if (number >= 1)
+            {
+                Sorting_Delay = number;
+                button0.IsEnabled = true;
+            }      
+            else
+            {
+                button0.IsEnabled = false;
+            }
         }
 
         private void CreatingSize_TextChanged(object sender, TextChangedEventArgs e)
