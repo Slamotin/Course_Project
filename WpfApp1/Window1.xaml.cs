@@ -449,6 +449,7 @@ namespace Interactive_Sort
                         rainbow.SetRGBColorForButton(j, array);
 
                         label3.Content = Int32.Parse(label3.Content.ToString()) + 1;
+                        await Task.Delay(Sorting_Delay);
                     }
                 }
                 
@@ -466,6 +467,7 @@ namespace Interactive_Sort
                         rainbow.SetRGBColorForButton(j - 1, array);
 
                         label3.Content = Int32.Parse(label3.Content.ToString()) + 1;
+                        await Task.Delay(Sorting_Delay);
                     }
                 }
                 
