@@ -28,6 +28,9 @@ namespace Interactive_Sort
         static int ArraySize;
         int Creating_Delay;
         int Sorting_Delay;
+        bool Skipflag = false;
+        bool CancelFlag = false;
+        bool PauseFlag = false;
 
         ///<summary>This struct contains colors of rainbow (from red to violet) with some step</summary>
         public struct ClrsOfRnbw64
@@ -237,8 +240,6 @@ namespace Interactive_Sort
                 for (int i = 1; i <= ArraySize - 1; i++)
                 {
                     // _rand.Next(64)
-                   
-
                     _buttons[i] = new Button();
                     _buttons[i].Width = (canvas1.ActualWidth - 80) / (ArraySize - 1);
                     _buttons[i].Height = 270;
@@ -314,8 +315,8 @@ namespace Interactive_Sort
         private void button1_Click(object sender, RoutedEventArgs e)
         {
             button1.IsEnabled = false;
-            button2.IsEnabled = true;
-            button3.IsEnabled = true;
+            SkipButton.IsEnabled = true;
+            CancelButton.IsEnabled = true;
             label1.Content = "0";
             label3.Content = "0";
             switch (comboBox1.SelectionBoxItem.ToString())
@@ -336,13 +337,15 @@ namespace Interactive_Sort
         //обработчки кнопки skip
         private void button2_Click(object sender, RoutedEventArgs e)
         {
-            
+            if (!Skipflag) Skipflag = true;
+            else Skipflag = false;
         }
 
         //обработчик кнопки cancel
         private void button3_Click(object sender, RoutedEventArgs e)
         {
-
+            if (!CancelFlag) CancelFlag = true;
+            else CancelFlag = false;
         }
 
         public async void InsertSort()
@@ -402,11 +405,16 @@ namespace Interactive_Sort
                     */
 
                     //Delay between iterations
-                    await Task.Delay(Sorting_Delay);
+                    do
+                    {
+                        if(!Skipflag) await Task.Delay(Sorting_Delay);
+                    } while (PauseFlag);
+                    
                 }
 
             }
             button0.IsEnabled = true;
+            Skipflag = false;
         }
 
         //сортировка пузырьком
@@ -431,11 +439,15 @@ namespace Interactive_Sort
                         rainbow.SetRGBColorForButton(i, arr);
 
                         label3.Content = Int32.Parse(label3.Content.ToString()) + 1;
-                        await Task.Delay(Sorting_Delay);
+                        do
+                        {
+                            if (!Skipflag) await Task.Delay(Sorting_Delay);
+                        } while (PauseFlag);
                     }
                 }
             }
             button0.IsEnabled = true;
+            Skipflag = false;
         }
 
 
@@ -464,7 +476,10 @@ namespace Interactive_Sort
                         rainbow.SetRGBColorForButton(j, array);
 
                         label3.Content = Int32.Parse(label3.Content.ToString()) + 1;
-                        await Task.Delay(Sorting_Delay);
+                        do
+                        {
+                            if (!Skipflag) await Task.Delay(Sorting_Delay);
+                        } while (PauseFlag);
                     }
                 }
                 
@@ -482,7 +497,10 @@ namespace Interactive_Sort
                         rainbow.SetRGBColorForButton(j - 1, array);
 
                         label3.Content = Int32.Parse(label3.Content.ToString()) + 1;
-                        await Task.Delay(Sorting_Delay);
+                        do
+                        {
+                            if (!Skipflag) await Task.Delay(Sorting_Delay);
+                        } while (PauseFlag);
                     }
                 }
                 
@@ -490,9 +508,13 @@ namespace Interactive_Sort
                 {
                     break;
                 }
-                await Task.Delay(Sorting_Delay);
+                do
+                {
+                    if (!Skipflag) await Task.Delay(Sorting_Delay);
+                } while (PauseFlag);
             }
             button0.IsEnabled = true;
+            Skipflag = false;
         }
 
         public Window1()
