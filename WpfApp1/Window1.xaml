@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
-        Title="MainWindow" Height="530" Width="1000"
+        Title="MainWindow" Height="510" Width="1000"
 		WindowStartupLocation="CenterScreen"
         Closed="Window_Closed"
         Closing="Window_Closing"
@@ -41,9 +41,8 @@
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-				<RowDefinition Height="28"></RowDefinition>
-            </Grid.RowDefinitions>
+				<RowDefinition></RowDefinition>
+			</Grid.RowDefinitions>
 			<Button x:Name="button0" Content="Build Random Rainbow" Grid.Column="1" Grid.Row="0" MaxHeight="300" Canvas.Left="5" Canvas.Top="358"
                 BorderThickness="0" Background="White" Click="Button0_Click">
 			</Button>
@@ -52,9 +51,6 @@
 			</Button>
 			<Button x:Name="SkipButton" Content="Skip" Grid.Column="1" Grid.Row="2" MaxHeight="300" Canvas.Left="5" Canvas.Top="358"
                 BorderThickness="0" Background="White" IsEnabled="False" Click="button2_Click">
-			</Button>
-			<Button x:Name="CancelButton" Content="Cancel" Grid.Column="1" Grid.Row="3" MaxHeight="300" Canvas.Left="5" Canvas.Top="358"
-                BorderThickness="0" Background="White" IsEnabled="False" Click="button3_Click">
 			</Button>
 			<Label Content="Выбор сортировки: " Grid.Column="2" VerticalContentAlignment="Center"/>
 			<ComboBox x:Name="comboBox1" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Height="22" Margin="0,8" Width="87">

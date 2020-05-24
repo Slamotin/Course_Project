@@ -29,7 +29,6 @@ namespace Interactive_Sort
         int Creating_Delay;
         int Sorting_Delay;
         bool Skipflag = false;
-        bool CancelFlag = false;
         bool PauseFlag = false;
 
         ///<summary>This struct contains colors of rainbow (from red to violet) with some step</summary>
@@ -318,8 +317,8 @@ namespace Interactive_Sort
         private void button1_Click(object sender, RoutedEventArgs e)
         {
             //button1.IsEnabled = false;
+            CreatingSize.IsEnabled = false;
             SkipButton.IsEnabled = true;
-            CancelButton.IsEnabled = true;
             if (button1.Content.ToString() == "Pause")
             {
                 PauseFlag = true;
@@ -359,13 +358,6 @@ namespace Interactive_Sort
         {
             if (!Skipflag) Skipflag = true;
             else Skipflag = false;
-        }
-
-        //обработчик кнопки cancel
-        private void button3_Click(object sender, RoutedEventArgs e)
-        {
-            if (!CancelFlag) CancelFlag = true;
-            else CancelFlag = false;
         }
 
         public async void InsertSort()
@@ -435,6 +427,7 @@ namespace Interactive_Sort
 
             }
             button0.IsEnabled = true;
+            CreatingSize.IsEnabled = true;
             Skipflag = false;
         }
 
@@ -469,6 +462,7 @@ namespace Interactive_Sort
                 }
             }
             button0.IsEnabled = true;
+            CreatingSize.IsEnabled = true;
             Skipflag = false;
         }
 
@@ -538,6 +532,7 @@ namespace Interactive_Sort
                     if(PauseFlag) await Task.Delay(1);
                 } while (PauseFlag);
             }
+            CreatingSize.IsEnabled = true;
             button0.IsEnabled = true;
             Skipflag = false;
         }
