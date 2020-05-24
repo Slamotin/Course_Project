@@ -302,36 +302,56 @@ namespace Interactive_Sort
         private async void Button0_Click(object sender, RoutedEventArgs e)
         {
             button0.IsEnabled = false;
+            PauseFlag = false;
+            button1.Content = "Start";
 
             ButtonRainbow RnbwBtn = new ButtonRainbow(ArraySize);
             Random_Array = RnbwBtn.Random_Rainbow_Array;
             await RnbwBtn.CreateButtons(canvas1);
 
             button1.IsEnabled = true;
+            
             e.Handled = true;
         }
 
         //обработчик кнопки start
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            button1.IsEnabled = false;
+            //button1.IsEnabled = false;
             SkipButton.IsEnabled = true;
             CancelButton.IsEnabled = true;
-            label1.Content = "0";
-            label3.Content = "0";
-            switch (comboBox1.SelectionBoxItem.ToString())
+            if (button1.Content.ToString() == "Pause")
             {
-                case "InsertSort":
-                    InsertSort();
-                    break;
-                case "BubbleSort":
-                    BubbleSort();
-                    break;
-                case "ShakerSort":
-                    ShakerSort();
-                    break;
+                PauseFlag = true;
+                button1.Content = "Start";
             }
-            e.Handled = true;
+            else if (button1.Content.ToString() == "Start" & PauseFlag == true)
+            {
+                PauseFlag = false;
+                button1.Content = "Pause";
+            }
+            else
+            {
+
+                label1.Content = "0";
+                label3.Content = "0";
+                switch (comboBox1.SelectionBoxItem.ToString())
+                {
+                    case "InsertSort":
+                        InsertSort();
+                        button1.Content = "Pause";
+                        break;
+                    case "BubbleSort":
+                        BubbleSort();
+                        button1.Content = "Pause";
+                        break;
+                    case "ShakerSort":
+                        ShakerSort();
+                        button1.Content = "Pause";
+                        break;
+                }
+                e.Handled = true;
+            }
         }
 
         //обработчки кнопки skip
@@ -408,6 +428,7 @@ namespace Interactive_Sort
                     do
                     {
                         if(!Skipflag) await Task.Delay(Sorting_Delay);
+                        if (PauseFlag) await Task.Delay(1);
                     } while (PauseFlag);
                     
                 }
@@ -442,6 +463,7 @@ namespace Interactive_Sort
                         do
                         {
                             if (!Skipflag) await Task.Delay(Sorting_Delay);
+                            if (PauseFlag) await Task.Delay(1);
                         } while (PauseFlag);
                     }
                 }
@@ -479,6 +501,7 @@ namespace Interactive_Sort
                         do
                         {
                             if (!Skipflag) await Task.Delay(Sorting_Delay);
+                            if (PauseFlag) await Task.Delay(1);
                         } while (PauseFlag);
                     }
                 }
@@ -500,6 +523,7 @@ namespace Interactive_Sort
                         do
                         {
                             if (!Skipflag) await Task.Delay(Sorting_Delay);
+                            if (PauseFlag) await Task.Delay(1);
                         } while (PauseFlag);
                     }
                 }
@@ -511,6 +535,7 @@ namespace Interactive_Sort
                 do
                 {
                     if (!Skipflag) await Task.Delay(Sorting_Delay);
+                    if(PauseFlag) await Task.Delay(1);
                 } while (PauseFlag);
             }
             button0.IsEnabled = true;
