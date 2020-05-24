@@ -74,10 +74,11 @@ namespace Interactive_Sort
             /// I save it for myself, do not delete them, now canvas1 transmit to CreateButtons() method 
             public ButtonRainbow(int NewArraySize)
             {
+                ArraySize = NewArraySize;
                 clrsOfRnbw64 = new ClrsOfRnbw64[NewArraySize];
                 Random_Rainbow_Array = new int[NewArraySize];
-                _buttons = new Button[NewArraySize];
-
+                //_buttons = new Button[NewArraySize];
+                Random_Array = new int[NewArraySize];
                 GenerateColoursOfRainbow(NewArraySize);
                 Random_Rainbow_Array = Non_RepeatingRandom(1, NewArraySize - 1, NewArraySize);
                 //CreateButtons(canv);
@@ -232,10 +233,11 @@ namespace Interactive_Sort
                 /*// Create a random non-repeatable array for mixing rainbow
                 Random_Rainbow_Array = Non_RepeatingRandom(1, ArraySize - 1, ArraySize);
                 */
-
-                for (int i = 1; i <= _buttons.Length - 1; i++)
+                _buttons = new Button[ArraySize];
+                for (int i = 1; i <= ArraySize - 1; i++)
                 {
                     // _rand.Next(64)
+                   
 
                     _buttons[i] = new Button();
                     _buttons[i].Width = (canvas1.ActualWidth - 80) / (ArraySize - 1);
@@ -398,7 +400,7 @@ namespace Interactive_Sort
         public async void BubbleSort()
         {
             
-            ButtonRainbow rainbow = new ButtonRainbow();
+            ButtonRainbow rainbow = new ButtonRainbow(ArraySize);
             int[] arr = Random_Array;
             int temp;
             for (int i = 0; i < arr.Length; i++)
@@ -427,7 +429,7 @@ namespace Interactive_Sort
         //шейкерная сортировка
         public async void ShakerSort()
         {
-            ButtonRainbow rainbow = new ButtonRainbow();
+            ButtonRainbow rainbow = new ButtonRainbow(ArraySize);
             int[] array = Random_Array;
             int temp;
             for (var i = 0; i < array.Length / 2; i++)
@@ -495,7 +497,7 @@ namespace Interactive_Sort
 
         private void Canvas1_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            ButtonRainbow temp_obj = new ButtonRainbow();
+            ButtonRainbow temp_obj = new ButtonRainbow(ArraySize);
             if (temp_obj.GetButtons(ArraySize - 1) != null)
             {
                 for (int i = 1; i <= ArraySize - 1; i++)
