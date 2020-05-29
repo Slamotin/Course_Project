@@ -17,7 +17,7 @@ namespace WpfApp1
         }
     }
     
-    public class BinaryTree<T> where T : IComparable
+    public class BST<T> where T : IComparable
     {
         private Node<T> root;
 
