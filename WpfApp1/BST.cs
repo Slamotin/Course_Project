@@ -75,5 +75,10 @@ namespace WpfApp1
                 node = node.Right;
             }
         }
+        
+        public T this[int index]
+        {
+            get => this.Skip(index).FirstOrDefault();
+        }
     }
 }
