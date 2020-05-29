@@ -17,7 +17,7 @@ namespace WpfApp1
         }
     }
     
-    public class BST<T> where T : IComparable
+    public class BST<T> : IEnumerable<T> where T : IComparable
     {
         private Node<T> root;
 
@@ -55,6 +55,25 @@ namespace WpfApp1
             if (key.CompareTo(node.Value) < 0)
                 return Contains(key, node.Left);
             return Contains(key, node.Right);
+        }
+        
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            var stack = new Stack<Node<T>>();
+            var node = root;
+            while (node != null || stack.Count > 0)
+            {
+                while (node != null)
+                {
+                    stack.Push(node);
+                    node = node.Left;
+                }
+                node = stack.Pop();
+                yield return node.Value;
+                node = node.Right;
+            }
         }
     }
 }
