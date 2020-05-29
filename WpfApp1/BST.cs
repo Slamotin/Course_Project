@@ -76,7 +76,7 @@ namespace WpfApp1
             }
         }
         
-        public T this[int index]
+        public T this[int index] // O(n), be careful boi
         {
             get => this.Skip(index).FirstOrDefault();
         }
