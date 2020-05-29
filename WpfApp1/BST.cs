@@ -50,11 +50,7 @@ namespace WpfApp1
         {
             if (node == null)
                 return false;
-            if (key.Equals(node.Value))
-                return true;
-            if (key.CompareTo(node.Value) < 0)
-                return Contains(key, node.Left);
-            return Contains(key, node.Right);
+            return key.Equals(node.Value) || Contains(key, key.CompareTo(node.Value) < 0 ? node.Left : node.Right);
         }
         
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
