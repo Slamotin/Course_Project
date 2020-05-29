@@ -7,13 +7,13 @@ namespace WpfApp1
 { 
     class Node<T>
     {
-        public T value { get; set; }
-        public Node<T> left { get; set; }
-        public Node<T> right { get; set; }
+        public T Value { get; set; }
+        public Node<T> Left { get; set; }
+        public Node<T> Right { get; set; }
 
         public Node(T value)
         {
-            this.value = value;
+            Value = value;
         }
     }
     
@@ -32,16 +32,16 @@ namespace WpfApp1
                 root = new Node<T>(key);
                 return;
             }
-            if (key.CompareTo(node.value) < 0)
-                if (node.left == null)
-                    node.left = new Node<T>(key);
+            if (key.CompareTo(node.Value) < 0)
+                if (node.Left == null)
+                    node.Left = new Node<T>(key);
                 else
-                    Add(key, node.left);
-            if (key.CompareTo(node.value) > 0)
-                if (node.right == null)
-                    node.right = new Node<T>(key);
+                    Add(key, node.Left);
+            if (key.CompareTo(node.Value) > 0)
+                if (node.Right == null)
+                    node.Right = new Node<T>(key);
                 else
-                    Add(key, node.right);
+                    Add(key, node.Right);
         }
 
         public bool Contains(T key) => Contains(key, root);
@@ -50,11 +50,11 @@ namespace WpfApp1
         {
             if (node == null)
                 return false;
-            if (key.Equals(node.value))
+            if (key.Equals(node.Value))
                 return true;
-            if (key.CompareTo(node.value) < 0)
-                return Contains(key, node.left);
-            return Contains(key, node.right);
+            if (key.CompareTo(node.Value) < 0)
+                return Contains(key, node.Left);
+            return Contains(key, node.Right);
         }
     }
 }
