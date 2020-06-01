@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
-        Title="MainWindow" Height="510" Width="1000"
+        Title="MainWindow" Height="510" Width="1000" MinHeight="300"
 		WindowStartupLocation="CenterScreen"
         Closed="Window_Closed"
         Closing="Window_Closing"
@@ -13,7 +13,7 @@
 
 
 	<Canvas x:Name="canvas1" SizeChanged="Canvas1_SizeChanged" Grid.ColumnSpan="3">
-		<Grid Width="250" HorizontalAlignment="Left" Margin="5">
+		<Grid Width="250" Height="50" HorizontalAlignment="Left" Margin="5">
 			<Grid.ColumnDefinitions >
 				<ColumnDefinition></ColumnDefinition>
 				<ColumnDefinition></ColumnDefinition>
@@ -29,7 +29,7 @@
 			<Label x:Name="label3" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Content="0"/>
 		</Grid>
 
-		<Grid Canvas.Top="358">
+		<Grid x:Name="ButtonGrid" Canvas.Bottom="20" >
 			<Grid.ColumnDefinitions >
 				<ColumnDefinition ></ColumnDefinition>
 				<ColumnDefinition ></ColumnDefinition>
@@ -50,7 +50,7 @@
 			<Button x:Name="SkipButton" Content="Skip" Grid.Column="1" Grid.Row="2" MaxHeight="300" Canvas.Left="5" Canvas.Top="358"
                 BorderThickness="0" Background="#FFEDF570" Visibility="Hidden" Click="button2_Click"/>
 			<Label Content="Выбор сортировки: " Grid.Column="2" VerticalContentAlignment="Center"/>
-			<ComboBox x:Name="comboBox1" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Height="22" Margin="0,8" Width="87">
+			<ComboBox x:Name="comboBox1" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Height="22" Margin="0,0" Width="87">
 				<ComboBoxItem IsSelected="True">InsertSort</ComboBoxItem>
 				<ComboBoxItem IsSelected="True">BubbleSort</ComboBoxItem>
 				<ComboBoxItem IsSelected="True">ShakerSort</ComboBoxItem>

@@ -231,6 +231,8 @@ namespace Interactive_Sort
             /// <returns></returns>
             public async Task CreateButtons(Canvas canvas1)
             {
+                for (int i = 1; i <= ArraySize - 1; i++)
+                    canvas1.Children.Remove(_buttons[i]);
                 /*// Create a random non-repeatable array for mixing rainbow
                 Random_Rainbow_Array = Non_RepeatingRandom(1, ArraySize - 1, ArraySize);
                 */
@@ -240,7 +242,9 @@ namespace Interactive_Sort
                     // _rand.Next(64)
                     _buttons[i] = new Button();
                     _buttons[i].Width = (canvas1.ActualWidth - 80) / (ArraySize - 1);
-                    _buttons[i].Height = 270;
+                    //_buttons[i].Height = 270;
+                    _buttons[i].Height = (canvas1.ActualHeight - 200);
+                    _buttons[i].MinHeight = 10;
                     _buttons[i].BorderThickness = new Thickness(0);
                     //_buttons[i].;
                     Canvas.SetTop(_buttons[i], 58);
@@ -286,12 +290,9 @@ namespace Interactive_Sort
                     canvas1.Children.Add(_labels3[i]);*/
 
                     await Task.Delay(1); //создание радуги
-
-                    
                 }
                 return;
             }
-
         }
 
         public int[] Random_Array;
@@ -574,16 +575,23 @@ namespace Interactive_Sort
 
         private void Canvas1_SizeChanged(object sender, SizeChangedEventArgs e)
         {
+
+            if (canvas1.ActualHeight - 115 > 125)
+                Canvas.SetTop(ButtonGrid, canvas1.ActualHeight - 95);
             ButtonRainbow temp_obj = new ButtonRainbow(ArraySize);
             if (temp_obj.GetButtons(ArraySize - 1) != null)
             {
                 for (int i = 1; i <= ArraySize - 1; i++)
                 {
                     Button a = temp_obj.GetButtons(i);
-                    //canvas1.Children.Remove(a);
+                    canvas1.Children.Remove(a);
+                    if (canvas1.ActualHeight - 200 > 0)
+                        a.Height = (canvas1.ActualHeight - 200);
+
                     a.Width = (canvas1.ActualWidth - 80) / (ArraySize - 1);
                     Canvas.SetLeft(a, 40 + (a.Width * (i - 1)));
-                    //canvas1.Children.Add(a);
+                    
+                    canvas1.Children.Add(a);
                 }
             }
 
