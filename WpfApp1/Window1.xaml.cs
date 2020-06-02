@@ -231,8 +231,9 @@ namespace Interactive_Sort
             /// <returns></returns>
             public async Task CreateButtons(Canvas canvas1)
             {
-                for (int i = 1; i <= ArraySize - 1; i++)
+                for (int i = 1; i <= _buttons.Length - 1; i++)
                     canvas1.Children.Remove(_buttons[i]);
+                ;
                 /*// Create a random non-repeatable array for mixing rainbow
                 Random_Rainbow_Array = Non_RepeatingRandom(1, ArraySize - 1, ArraySize);
                 */
@@ -610,12 +611,8 @@ namespace Interactive_Sort
             if (number >= 1)
             {
                 Sorting_Delay = number;
-                button0.IsEnabled = true;
             }      
-            else
-            {
-                button0.IsEnabled = false;
-            }
+
         }
 
         private void CreatingSize_TextChanged(object sender, TextChangedEventArgs e)
