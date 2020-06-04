@@ -376,7 +376,7 @@ namespace Interactive_Sort
             }*/
             for (int i = 1; i < Temp_Array.Length; i++)
             {
-                SkipButton.Visibility = Visibility.Visible;
+                SkipButton.IsEnabled = true;
                 label1.Content = i;
                 int j = 0;
                 //string a = (string)label4.Content;
@@ -426,7 +426,7 @@ namespace Interactive_Sort
                         if (PauseFlag)
                         {
                             await Task.Delay(1);
-                            SkipButton.Visibility = Visibility.Hidden;
+                            SkipButton.IsEnabled = false; 
                         }
                     } while (PauseFlag);
                     
@@ -437,6 +437,7 @@ namespace Interactive_Sort
             comboBox1.IsEnabled = true;
             CreatingSize.IsEnabled = true;
             Skipflag = false;
+            SkipButton.IsEnabled = false;
         }
 
         //сортировка пузырьком
@@ -447,7 +448,7 @@ namespace Interactive_Sort
             int temp;
             for (int i = 0; i < arr.Length; i++)
             {
-                SkipButton.Visibility = Visibility.Visible;
+                SkipButton.IsEnabled = true;
                 label1.Content = i;
                 for (int j = i + 1; j < arr.Length; j++)
                 {
@@ -467,7 +468,7 @@ namespace Interactive_Sort
                             if (PauseFlag)
                             {
                                 await Task.Delay(1);
-                                SkipButton.Visibility = Visibility.Hidden;
+                                SkipButton.IsEnabled = false;
                             }
                         } while (PauseFlag);
                     }
@@ -477,6 +478,7 @@ namespace Interactive_Sort
             comboBox1.IsEnabled = true;
             CreatingSize.IsEnabled = true;
             Skipflag = false;
+            SkipButton.IsEnabled = false;
         }
 
 
@@ -489,7 +491,7 @@ namespace Interactive_Sort
             int temp;
             for (var i = 0; i < array.Length / 2; i++)
             {
-                SkipButton.Visibility = Visibility.Visible;
+                SkipButton.IsEnabled = true;
                 label1.Content = i;
                 var swapFlag = false;
                 
@@ -513,7 +515,7 @@ namespace Interactive_Sort
                             if (PauseFlag)
                             {
                                 await Task.Delay(1);
-                                SkipButton.Visibility = Visibility.Hidden;
+                                SkipButton.IsEnabled = false;
                             }
                         } while (PauseFlag);
                     }
@@ -539,7 +541,7 @@ namespace Interactive_Sort
                             if (PauseFlag)
                             {
                                 await Task.Delay(1);
-                                SkipButton.Visibility = Visibility.Hidden;
+                                SkipButton.IsEnabled = false;
                             }
                         } while (PauseFlag);
                     }
@@ -555,7 +557,7 @@ namespace Interactive_Sort
                     if (PauseFlag)
                     {
                         await Task.Delay(1);
-                        SkipButton.Visibility = Visibility.Hidden;
+                        SkipButton.IsEnabled = false;
                     }
                 } while (PauseFlag);
             }
@@ -563,6 +565,7 @@ namespace Interactive_Sort
             comboBox1.IsEnabled = true;
             button0.IsEnabled = true;
             Skipflag = false;
+            SkipButton.IsEnabled = false;
         }
 
         public Window1()
@@ -582,7 +585,7 @@ namespace Interactive_Sort
         {
 
             if (canvas1.ActualHeight - 115 > 125)
-                Canvas.SetTop(ButtonGrid, canvas1.ActualHeight - 115);
+                Canvas.SetTop(ButtonGrid, canvas1.ActualHeight - 110);
             ButtonRainbow temp_obj = new ButtonRainbow(ArraySize);
             if (temp_obj.GetButtons(ArraySize - 1) != null)
             {

@@ -48,7 +48,7 @@
 			<Button x:Name="button1" Content="Start" Grid.Column="1" Grid.Row="1" MaxHeight="300" Canvas.Left="5" Canvas.Top="358"
                 BorderThickness="0" Background="#FFF7AA41" Click="button1_Click"/>
 			<Button x:Name="SkipButton" Content="Skip" Grid.Column="1" Grid.Row="2" MaxHeight="300" Canvas.Left="5" Canvas.Top="358"
-                BorderThickness="0" Background="#FFEDF570" Visibility="Hidden" Click="button2_Click"/>
+                BorderThickness="0" Background="#FFEDF570" IsEnabled="False" Click="button2_Click"/>
 			<Label Content="Выбор сортировки: " Grid.Column="2" VerticalContentAlignment="Center"/>
 			<ComboBox x:Name="comboBox1" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Height="22" Margin="0,0" Width="87"
                       Foreground="Black" Background="Blue" >
