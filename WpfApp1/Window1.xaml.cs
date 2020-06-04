@@ -319,6 +319,7 @@ namespace Interactive_Sort
         {
             //button1.IsEnabled = false;
             CreatingSize.IsEnabled = false;
+            comboBox1.IsEnabled = false;
             SkipButton.IsEnabled = true;
             if (button1.Content.ToString() == "Pause")
             {
@@ -433,6 +434,7 @@ namespace Interactive_Sort
 
             }
             button0.IsEnabled = true;
+            comboBox1.IsEnabled = true;
             CreatingSize.IsEnabled = true;
             Skipflag = false;
         }
@@ -472,6 +474,7 @@ namespace Interactive_Sort
                 }
             }
             button0.IsEnabled = true;
+            comboBox1.IsEnabled = true;
             CreatingSize.IsEnabled = true;
             Skipflag = false;
         }
@@ -557,6 +560,7 @@ namespace Interactive_Sort
                 } while (PauseFlag);
             }
             CreatingSize.IsEnabled = true;
+            comboBox1.IsEnabled = true;
             button0.IsEnabled = true;
             Skipflag = false;
         }
@@ -578,7 +582,7 @@ namespace Interactive_Sort
         {
 
             if (canvas1.ActualHeight - 115 > 125)
-                Canvas.SetTop(ButtonGrid, canvas1.ActualHeight - 95);
+                Canvas.SetTop(ButtonGrid, canvas1.ActualHeight - 115);
             ButtonRainbow temp_obj = new ButtonRainbow(ArraySize);
             if (temp_obj.GetButtons(ArraySize - 1) != null)
             {
