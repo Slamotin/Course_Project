@@ -1,80 +1,100 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace WpfApp1
-{ 
-    class Node<T>
+{
+    class Node
     {
-        public T Value { get; set; }
-        public Node<T> Left { get; set; }
-        public Node<T> Right { get; set; }
+        public readonly int Key;
+        public int Height;
+        public Node Left, Right;
 
-        public Node(T value)
+        public Node(int key)
         {
-            Value = value;
+            Key = key;
+            Height = 1;
         }
     }
-    
-    public class BST<T> : IEnumerable<T> where T : IComparable
+
+    class BST
     {
-        private Node<T> root;
+        private Node root;
 
-        public void Add(T key) => Add(key, root);
+        private int GetHeight(Node node) => node?.Height ?? 0;
 
-        private void Add(T key, Node<T> node)
+        private int GetBalance(Node node) => node == null ? 0 : GetHeight(node.Left) - GetHeight(node.Right);
+
+        private Node RightRotate(Node y)
         {
-            if (key == null)
-                throw new ArgumentException("key is null");
-            if (root == null)
-            {
-                root = new Node<T>(key);
-                return;
-            }
-            if (key.CompareTo(node.Value) < 0)
-                if (node.Left == null)
-                    node.Left = new Node<T>(key);
-                else
-                    Add(key, node.Left);
-            if (key.CompareTo(node.Value) > 0)
-                if (node.Right == null)
-                    node.Right = new Node<T>(key);
-                else
-                    Add(key, node.Right);
+            Node x = y.Left;
+            Node T2 = x.Right;
+
+            x.Right = y;
+            y.Left = T2;
+            y.Height = Math.Max(GetHeight(y.Left), GetHeight(y.Right)) + 1;
+            x.Height = Math.Max(GetHeight(x.Left), GetHeight(x.Right)) + 1;
+
+            return x;
         }
 
-        public bool Contains(T key) => Contains(key, root);
-        
-        private bool Contains(T key, Node<T> node)
+        private Node LeftRotate(Node x)
+        {
+            Node y = x.Right;
+            Node T2 = y.Left;
+
+            y.Left = x;
+            x.Right = T2;
+            x.Height = Math.Max(GetHeight(x.Left), GetHeight(x.Right)) + 1;
+            y.Height = Math.Max(GetHeight(y.Left), GetHeight(y.Right)) + 1;
+
+            return y;
+        }
+
+        public void Insert(int key) => root = Insert(root, key);
+
+        private Node Insert(Node node, int key)
+        {
+            if (node == null)
+                return new Node(key);
+
+            if (key < node.Key)
+                node.Left = Insert(node.Left, key);
+            else if (key > node.Key)
+                node.Right = Insert(node.Right, key);
+            else
+                return node;
+
+            node.Height = 1 + Math.Max(GetHeight(node.Left), GetHeight(node.Right));
+            int balance = GetBalance(node);
+            if (balance > 1 && key < node.Left.Key)
+                return RightRotate(node);
+            if (balance < -1 && key > node.Right.Key)
+                return LeftRotate(node);
+            if (balance > 1 && key > node.Left.Key)
+            {
+                node.Left = LeftRotate(node.Left);
+                return RightRotate(node);
+            }
+
+            if (balance < -1 && key < node.Right.Key)
+            {
+                node.Right = RightRotate(node.Right);
+                return LeftRotate(node);
+            }
+
+            return node;
+        }
+
+        public bool Contains(int key) => Contains(root, key);
+
+        private bool Contains(Node node, int key)
         {
             if (node == null)
                 return false;
-            return key.Equals(node.Value) || Contains(key, key.CompareTo(node.Value) < 0 ? node.Left : node.Right);
-        }
-        
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-
-        public IEnumerator<T> GetEnumerator()
-        {
-            var stack = new Stack<Node<T>>();
-            var node = root;
-            while (node != null || stack.Count > 0)
-            {
-                while (node != null)
-                {
-                    stack.Push(node);
-                    node = node.Left;
-                }
-                node = stack.Pop();
-                yield return node.Value;
-                node = node.Right;
-            }
-        }
-        
-        public T this[int index] // O(n), be careful boi
-        {
-            get => this.Skip(index).FirstOrDefault();
+            if (node.Key > key)
+                return Contains(node.Left, key);
+            if (node.Key < key)
+                return Contains(node.Right, key);
+            return true;
         }
     }
 }
