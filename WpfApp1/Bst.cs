@@ -15,7 +15,7 @@ namespace WpfApp1
         }
     }
 
-    class BST
+    class Bst
     {
         private Node root;
 
