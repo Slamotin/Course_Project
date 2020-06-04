@@ -36,17 +36,62 @@ namespace HASH
     {
         //Insert here your description 
         public string description3 = "";
-        string[] arr = new string[10];
+        string[] arr = new string[11];
         Dictionary<int, TextBlock> myDict = new Dictionary<int, TextBlock>();
         Dictionary<int, TextBlock> myPointer = new Dictionary<int, TextBlock>();
         bool dictExist = false;
         int newNum;
         int newIdx;
-
+        int busycount=0;
+        int table_size=11;
         public Window3()
         {
             InitializeComponent();
             
+        }
+        private int Hash1(int val)
+        {
+            return val % table_size;
+        }
+
+        private int Hash2(int val)
+        {
+            return (val % 10)+1;
+        }
+
+        private void Clear_Table()
+        {
+            myDict.Clear();
+            myDict.Add(0, b0);
+            myDict.Add(1, b1);
+            myDict.Add(2, b2);
+            myDict.Add(3, b3);
+            myDict.Add(4, b4);
+            myDict.Add(5, b5);
+            myDict.Add(6, b6);
+            myDict.Add(7, b7);
+            myDict.Add(8, b8);
+            myDict.Add(9, b9);
+            myDict.Add(10, b10);
+            myPointer.Clear();
+            myPointer.Add(0, p0);
+            myPointer.Add(1, p1);
+            myPointer.Add(2, p2);
+            myPointer.Add(3, p3);
+            myPointer.Add(4, p4);
+            myPointer.Add(5, p5);
+            myPointer.Add(6, p6);
+            myPointer.Add(7, p7);
+            myPointer.Add(8, p8);
+            myPointer.Add(9, p9);
+            myPointer.Add(10, p10);
+            for (int i = 0; i < table_size; i++)
+                myDict[i].Text = "x";
+            dictExist = true;
+            busycount = 0;
+            button1.IsEnabled = true;
+            
+            return;
         }
 
         void movePointer(int idx)
@@ -60,7 +105,7 @@ namespace HASH
 
         void checkClasterFromEnd(int idx)
         {
-            for (int i = 9; i > idx; i--)
+            for (int i = 10; i > idx; i--)
             {
                 if (myDict[i].Text == "o")
                 {
@@ -96,43 +141,109 @@ namespace HASH
             }
         }
 
-        async Task goRight(int idx, int num)
+        async Task goRight (int idx, int num)
         {
-            for (int j = idx; j < myDict.Count; j++)
+            switch (comboBox1.SelectionBoxItem.ToString())
             {
-                movePointer(j);
+                case "LinearProbe":
+                    {
+                        for (int j = idx; j < myDict.Count; j++)
+                        {
+                            movePointer(j);
 
-                // проверяем пустая ли там ячейка и если да, то вписываем значение
-                if ((myDict[j].Text == "x") || (myDict[j].Text == "o"))
-                {
-                    myDict[j].Text = num.ToString();
-                    return;
-                }
-                await Task.Delay(1000);
-            }
-            // если дошли до конца массива и не нашли свободной ячейки, то просматриваем массив с начала
-            for (int j = 0; j < idx; j++)
-            {
-                movePointer(j);
+                            // проверяем пустая ли там ячейка и если да, то вписываем значение
+                            if ((myDict[j].Text == "x") || (myDict[j].Text == "o"))
+                            {
+                                myDict[j].Text = num.ToString();
+                                myPointer[j].Background = Brushes.LightGreen;
+                                await Task.Delay(1000);
+                                myPointer[j].Background = Brushes.White;
 
-                // проверяем пустая ли там ячейка и если да, то вписываем значение
-                if ((myDict[j].Text == "x") || (myDict[j].Text == "o"))
-                {
-                    myDict[j].Text = num.ToString();
-                    return;
-                }
-                await Task.Delay(1000);
+                                busycount += 1;
+                                return;
+                            }
+                            await Task.Delay(1000);
+                        }
+                        // если дошли до конца массива и не нашли свободной ячейки, то просматриваем массив с начала
+                        for (int j = 0; j < idx; j++)
+                        {
+                            movePointer(j);
+
+                            // проверяем пустая ли там ячейка и если да, то вписываем значение
+                            if ((myDict[j].Text == "x") || (myDict[j].Text == "o"))
+                            {
+                                myDict[j].Text = num.ToString();
+                                myPointer[j].Background = Brushes.LightGreen;
+                                await Task.Delay(1000);
+                                myPointer[j].Background = Brushes.White;
+                                busycount += 1;
+                                return;
+                            }
+                            await Task.Delay(1000);
+                        }
+                        // если мы сюда попали, то значит у нас массив заполнен!
+                        myDict.Clear();
+                        dictExist = false;
+                        return;
+                        break;
+                    }
+
+                case "SquareProbe":
+                    {
+                        int ind = idx;
+                        int j = 1;
+                        while(true)
+                        {
+                            ind = Hash1((ind * (int)System.Math.Pow(j, 2))+j%2);
+                            // проверяем пустая ли там ячейка и если да, то вписываем значение
+                            if ((myDict[ind].Text == "x") || (myDict[ind].Text == "o"))
+                            {
+                                myDict[ind].Text = num.ToString();
+                                myPointer[ind].Text = "^";
+                                myPointer[ind].Background = Brushes.LightGreen;
+                                await Task.Delay(1000);
+                                myPointer[ind].Background = Brushes.White;
+                                busycount += 1;
+                                
+                                return;
+                            }
+                            j++;
+                        }
+                        break;
+                    }
+
+
+                case "DoubleHash":
+                    {
+                        int ind = idx;
+                        int j = 1;
+                        while (true)
+                        {
+                            ind = (ind +j*(Hash2(ind)+j%2)) % myDict.Count;
+                            // проверяем пустая ли там ячейка и если да, то вписываем значение
+                            if ((myDict[ind].Text == "x") || (myDict[ind].Text == "o"))
+                            {
+                                myDict[ind].Text = num.ToString();
+                                myPointer[ind].Text = "^";
+                                myPointer[ind].Background = Brushes.LightGreen;
+                                await Task.Delay(1000);
+                                myPointer[ind].Background = Brushes.White;
+                                busycount += 1;
+                                
+                                return;
+                            }
+                            j++;
+                        }
+                        break;
+                    }
             }
-            // если мы сюда попали, то значит у нас массив заполнен!
-            myDict.Clear();
-            dictExist = false;
-            return;
+            
         }
 
         async Task delRight(string delEl, int delIdx)
         {
             // идем вправо по кластеру и ищем удаляемый элемент
-            for (int i = delIdx; i < 9; i++)
+            for (int i = delIdx; i < 10; i++)
             {
                 movePointer(i);
 
@@ -160,7 +271,7 @@ namespace HASH
                 await Task.Delay(1000);
             }
             // если ни один return до этого не сработал, то проверим последний эл-т
-            movePointer(9);
+            movePointer(10);
 
             if (myDict[9].Text == "x")
             {
@@ -173,7 +284,7 @@ namespace HASH
                 if (myDict[0].Text == "x")
                 {
                     myDict[9].Text = "x";
-                    checkEndOfClaster(9);
+                    checkEndOfClaster(10);
                 }
                 else
                 {
@@ -225,109 +336,159 @@ namespace HASH
             // Если словарь еще не создан, то создаем его
             if (!dictExist)
             {
-                myDict.Clear();
-                myDict.Add(0, b0);
-                myDict.Add(1, b1);
-                myDict.Add(2, b2);
-                myDict.Add(3, b3);
-                myDict.Add(4, b4);
-                myDict.Add(5, b5);
-                myDict.Add(6, b6);
-                myDict.Add(7, b7);
-                myDict.Add(8, b8);
-                myDict.Add(9, b9);
-                myPointer.Clear();
-                myPointer.Add(0, p0);
-                myPointer.Add(1, p1);
-                myPointer.Add(2, p2);
-                myPointer.Add(3, p3);
-                myPointer.Add(4, p4);
-                myPointer.Add(5, p5);
-                myPointer.Add(6, p6);
-                myPointer.Add(7, p7);
-                myPointer.Add(8, p8);
-                myPointer.Add(9, p9);
-                for (int i = 0; i < 10; i++)
-                    myDict[i].Text = "x";
-                dictExist = true;
+                Clear_Table();
             }
 
             // начинаем работу
             var rand = new Random();
             newNum = rand.Next(50);
-            newIdx = newNum % 7;   // это наша хеш-функция
+            //newIdx = newNum % table_size;   // это наша хеш-функция
+            newIdx = Hash1(newNum);
             // прописываем наше число и хеш в окошки
             insertElement.Text = newNum.ToString();
             insertHash.Text = newIdx.ToString();
             // очищаем каждый раз указатель
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < table_size; i++)
                 myPointer[i].Text = "";
             if (myDict[newIdx].Text == "x")
             {
                 myDict[newIdx].Text = newNum.ToString();
                 myPointer[newIdx].Text = "^";
+                myPointer[newIdx].Background = Brushes.LightGreen;
+                await Task.Delay(1000);
+                myPointer[newIdx].Background = Brushes.White;
+                busycount += 1;
             }
             else
             {
+
+
                 // идем вправо и ищем свободное место
                 await goRight(newIdx, newNum);
             }
-            button1.IsEnabled = button2.IsEnabled = true;
+            //button1.IsEnabled = button2.IsEnabled = true;
+            
+            if (textBox1.Text.Length>0)
+            {
+                button2.IsEnabled = true;
+            }
+            if (busycount == table_size)
+            {
+                button1.IsEnabled = false;
+                outputWindow.Text = "Таблица заполнена";
+            }
+            else
+            {
+                button1.IsEnabled = true;
+            }
         }
 
         async private void button2_Click(object sender, RoutedEventArgs e)
         {
             string delEl = textBox1.Text;
-            int delIdx = Int32.Parse(delEl) % 7;
+            int delIdx = Hash1(Int32.Parse(delEl));
             button1.IsEnabled = button2.IsEnabled = false;
 
-            // если элемент находится по указанному индексу
-            if (myDict[delIdx].Text == delEl)
+            switch (comboBox1.SelectionBoxItem.ToString())
             {
-                movePointer(delIdx);
+                case "LinearProbe":
+                    {
+                        // если элемент находится по указанному индексу
+                        if (myDict[delIdx].Text == delEl)
+                        {
+                            movePointer(delIdx);
 
-                // проверим не конец ли массива !!!!!!! тут поставил проверку < 9... Это под конкретный наш пример.!!!!!!!!!!
-                if (delIdx < 9)
-                {
-                    // Удаляем элемент и заменяем его на один из символов
-                    if (myDict[delIdx + 1].Text == "x")
-                    {
-                        outputWindow.Text = "Сразу удаляем!";
-                        myDict[delIdx].Text = "x";
-                        checkEndOfClaster(delIdx);
+                            // проверим не конец ли массива !!!!!!! тут поставил проверку < table_size. 
+                            if (delIdx < table_size)
+                            {
+                                // Удаляем элемент и заменяем его на один из символов
+                                if (myDict[delIdx + 1].Text == "x")
+                                {
+                                    outputWindow.Text = "Сразу удаляем!";
+                                    myDict[delIdx].Text = "x";
+                                    checkEndOfClaster(delIdx);
+                                    busycount -= 1;
+                                    button1.IsEnabled = true;
+                                }
+                                else
+                                {
+                                    outputWindow.Text = "Сразу удаляем и ставим маркер!";
+                                    myDict[delIdx].Text = "o";
+                                    busycount -= 1;
+                                    button1.IsEnabled = true;
+                                }
+                            }
+                            else
+                            {
+                                // тут проверка последнего элемента
+                                if (myDict[0].Text == "x")
+                                {
+                                    myDict[delIdx].Text = "x";
+                                    checkEndOfClaster(delIdx);
+                                    busycount -= 1;
+                                    button1.IsEnabled = true;
+                                }
+                                else
+                                {
+                                    myDict[delIdx].Text = "o";
+                                    busycount -= 1;
+                                    button1.IsEnabled = true;
+                                }
+                            }
+                        }
+                        // ветка когда мы попали при проверке на другое число или на маркер "о"
+                        else
+                        {
+                            await delRight(delEl, delIdx);
+                        }
+                        break;
                     }
-                    else
+                case "SquareProbe":
                     {
-                        outputWindow.Text = "Сразу удаляем и ставим маркер!";
-                        myDict[delIdx].Text = "o";
+                        //считываем список значений с хешем таким же как и у удаляемого
+
+
+                        break;
                     }
-                }
-                else
-                {
-                    // тут проверка последнего элемента
-                    if (myDict[0].Text == "x")
+                case "DoubleHash":
                     {
-                        myDict[delIdx].Text = "x";
-                        checkEndOfClaster(delIdx);
+                        break;
                     }
-                    else
-                    {
-                        myDict[delIdx].Text = "o";
-                    }
-                }
-            }
-            // ветка когда мы попали при проверке на другое число или на маркер "о"
-            else
-            {
-                await delRight(delEl, delIdx);
             }
 
-            button1.IsEnabled = button2.IsEnabled = true;
+
+           
+
+            button2.IsEnabled = true;
+            
         }
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             e.Cancel = true;
             Hide();
+        }
+
+        private void textBox1_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (textBox1.Text.Length>0)
+            {
+                button2.IsEnabled = true;
+            }
+            else
+            {
+                button2.IsEnabled = false;
+            }
+        }
+
+        private void comboBox1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Clear_Table();
+
+        }
+
+        private void button3_Click(object sender, RoutedEventArgs e)
+        {
+            Clear_Table();
         }
     }
 }
