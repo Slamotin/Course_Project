@@ -7,7 +7,8 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
         Loaded="Window_Loaded"
-        Closing="Window_Closing">
+        Closing="Window_Closing"
+        ResizeMode="NoResize">
     <Grid Background="Azure">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="31*"/>
@@ -25,7 +26,7 @@
         <TextBox x:Name="description_Box1" HorizontalAlignment="Left" Height="163" Margin="355,74,0,0" Text="Описание алгоритма" TextWrapping="Wrap" VerticalAlignment="Top" 
                  Width="402" BorderThickness="0" Background="Azure" Grid.ColumnSpan="2" />
         <Button x:Name="Exit_button1" Content="Выход" Background="Azure" HorizontalAlignment="Left" 
-                Height="23" Margin="102.15,351,0,0" VerticalAlignment="Top" Width="97" Click="Exit_button_Click" BorderBrush="DeepSkyBlue" Grid.Column="1"/>
+                Height="24" Margin="84,350,0,0" VerticalAlignment="Top" Width="98" Click="Exit_button_Click" BorderBrush="DeepSkyBlue" Grid.Column="1"/>
     </Grid>
 
 </Window>
