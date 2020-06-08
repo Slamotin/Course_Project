@@ -47,7 +47,9 @@
                 <TextBlock x:Name="b10" Width="20" Height="20" Margin="5" Text="x" TextAlignment="Center" />
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="180,5,226,5" HorizontalAlignment="Center" Width="376" Height="22" >
+                <Rectangle x:Name="rec1" TextBlock.BaselineOffset=""></Rectangle>
                 <TextBlock x:Name="p0" Width="20" Height="20" Margin="5" Text="^" TextAlignment="Center" />
+                
                 <TextBlock x:Name="p1" Width="20" Height="20" Margin="5" Text="" TextAlignment="Center" />
                 <TextBlock x:Name="p2" Width="20" Height="20" Margin="5" Text="" TextAlignment="Center" />
                 <TextBlock x:Name="p3" Width="20" Height="20" Margin="5" Text="" TextAlignment="Center" />

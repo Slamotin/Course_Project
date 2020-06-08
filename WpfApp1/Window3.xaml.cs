@@ -250,6 +250,7 @@ namespace HASH
                 if (myDict[i].Text == "x")
                 {
                     outputWindow.Text = "Элемент не найден.";
+
                     return;
                 }
                 else if (myDict[i].Text == delEl)
@@ -264,6 +265,7 @@ namespace HASH
                     {
                         myDict[i].Text = "o";
                         outputWindow.Text = "Элемент удален. Ставим маркер!";
+
                     }
                     return;
                 }
@@ -273,22 +275,32 @@ namespace HASH
             // если ни один return до этого не сработал, то проверим последний эл-т
             movePointer(10);
 
-            if (myDict[9].Text == "x")
+            if (myDict[10].Text == "x")
             {
                 outputWindow.Text = "Last element is not the one too";
+                if (busycount < table_size)
+                {
+                    button1.IsEnabled = true;
+                }
+
                 return;
             }
-            else if (myDict[9].Text == delEl)
+            else if (myDict[10].Text == delEl)
             {
                 outputWindow.Text = "Element was founded at the last index";
                 if (myDict[0].Text == "x")
                 {
-                    myDict[9].Text = "x";
+                    myDict[10].Text = "x";
                     checkEndOfClaster(10);
+                    busycount -= 1;
+                    button1.IsEnabled = true;
                 }
                 else
                 {
-                    myDict[9].Text = "o";
+                    myDict[10].Text = "o";
+                    busycount -= 1;
+                    button1.IsEnabled = true;
+
                 }
                 return;
             }
@@ -302,6 +314,10 @@ namespace HASH
                 if (myDict[i].Text == "x")
                 {
                     outputWindow.Text = "There is no element you find";
+                    if (busycount < table_size)
+                    {
+                        button1.IsEnabled = true;
+                    }
                     return;
                 }
                 else if (myDict[i].Text == delEl)
@@ -311,12 +327,16 @@ namespace HASH
                         outputWindow.Text = "Нашел и удалил!";
                         myDict[i].Text = "x";
                         checkEndOfClaster(i);
+                        busycount -= 1;
+                        button1.IsEnabled = true;
                         return;
                     }
                     else
                     {
                         outputWindow.Text = "Удаляем и ставим маркер!";
                         myDict[i].Text = "o";
+                        busycount -= 1;
+                        button1.IsEnabled = true;
                         return;
                     }
                 }
@@ -326,6 +346,10 @@ namespace HASH
 
             // все проверили. Если дошли сюда, то такого элемента нет.
             outputWindow.Text = "Такого элемента не обнаружено";
+            if (busycount<table_size)
+            {
+                button1.IsEnabled = true;
+            }
             return;
         }
 
@@ -402,7 +426,7 @@ namespace HASH
                             if (delIdx < table_size)
                             {
                                 // Удаляем элемент и заменяем его на один из символов
-                                if (myDict[delIdx + 1].Text == "x")
+                                if (myDict[delIdx].Text == "x")
                                 {
                                     outputWindow.Text = "Сразу удаляем!";
                                     myDict[delIdx].Text = "x";
@@ -440,6 +464,10 @@ namespace HASH
                         else
                         {
                             await delRight(delEl, delIdx);
+                            if (busycount < table_size)
+                            {
+                                button1.IsEnabled = true;
+                            }
                         }
                         break;
                     }
