@@ -123,7 +123,7 @@ namespace HASH
             {
                 for (int i = idx - 1; i > -1; i--)
                 {
-                    if (myDict[i].Text == "o")
+                    if (myDict[i].Text == "o"|| myDict[i].Text == "x")
                     {
                         outputWindow.Text = "Маркеры очищены!";
                         myDict[i].Text = "x";
@@ -182,9 +182,9 @@ namespace HASH
                             await Task.Delay(1000);
                         }
                         // если мы сюда попали, то значит у нас массив заполнен!
-                        myDict.Clear();
-                        dictExist = false;
-                        return;
+                        //myDict.Clear();
+                        //dictExist = false;
+                        //return;
                         break;
                     }
 
@@ -267,6 +267,8 @@ namespace HASH
                         outputWindow.Text = "Элемент удален. Ставим маркер!";
 
                     }
+                    busycount -= 1;
+                    
                     return;
                 }
 
@@ -278,10 +280,7 @@ namespace HASH
             if (myDict[10].Text == "x")
             {
                 outputWindow.Text = "Last element is not the one too";
-                if (busycount < table_size)
-                {
-                    button1.IsEnabled = true;
-                }
+                
 
                 return;
             }
@@ -292,16 +291,17 @@ namespace HASH
                 {
                     myDict[10].Text = "x";
                     checkEndOfClaster(10);
-                    busycount -= 1;
-                    button1.IsEnabled = true;
+                    
+                    
                 }
                 else
                 {
                     myDict[10].Text = "o";
-                    busycount -= 1;
-                    button1.IsEnabled = true;
+                    
+                    
 
                 }
+                busycount -= 1;
                 return;
             }
             // задержимся на последнем элементе для показухи
@@ -314,10 +314,7 @@ namespace HASH
                 if (myDict[i].Text == "x")
                 {
                     outputWindow.Text = "There is no element you find";
-                    if (busycount < table_size)
-                    {
-                        button1.IsEnabled = true;
-                    }
+                    
                     return;
                 }
                 else if (myDict[i].Text == delEl)
@@ -327,18 +324,17 @@ namespace HASH
                         outputWindow.Text = "Нашел и удалил!";
                         myDict[i].Text = "x";
                         checkEndOfClaster(i);
-                        busycount -= 1;
-                        button1.IsEnabled = true;
-                        return;
+                        
                     }
                     else
                     {
                         outputWindow.Text = "Удаляем и ставим маркер!";
                         myDict[i].Text = "o";
-                        busycount -= 1;
-                        button1.IsEnabled = true;
-                        return;
+                        
                     }
+                    busycount -= 1;
+
+                    return;
                 }
 
                 await Task.Delay(1000);
@@ -346,10 +342,7 @@ namespace HASH
 
             // все проверили. Если дошли сюда, то такого элемента нет.
             outputWindow.Text = "Такого элемента не обнаружено";
-            if (busycount<table_size)
-            {
-                button1.IsEnabled = true;
-            }
+            
             return;
         }
 
@@ -423,10 +416,10 @@ namespace HASH
                             movePointer(delIdx);
 
                             // проверим не конец ли массива !!!!!!! тут поставил проверку < table_size. 
-                            if (delIdx < table_size)
+                            if (delIdx < table_size-1)
                             {
                                 // Удаляем элемент и заменяем его на один из символов
-                                if (myDict[delIdx].Text == "x")
+                                if (myDict[delIdx+1].Text == "x")
                                 {
                                     outputWindow.Text = "Сразу удаляем!";
                                     myDict[delIdx].Text = "x";
