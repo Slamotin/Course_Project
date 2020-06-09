@@ -303,7 +303,9 @@ namespace Interactive_Sort
         {
             button0.IsEnabled = false;
             PauseFlag = false;
+            button1.IsEnabled = true;
             button1.Content = "Start";
+           
 
             ButtonRainbow RnbwBtn = new ButtonRainbow(ArraySize);
             Random_Array = RnbwBtn.Random_Rainbow_Array;
@@ -360,6 +362,7 @@ namespace Interactive_Sort
         {
             if (!Skipflag) Skipflag = true;
             else Skipflag = false;
+            button1.IsEnabled = false;
         }
 
         public async void InsertSort()
@@ -434,6 +437,7 @@ namespace Interactive_Sort
 
             }
             button0.IsEnabled = true;
+            button1.IsEnabled = false;
             comboBox1.IsEnabled = true;
             CreatingSize.IsEnabled = true;
             Skipflag = false;
@@ -475,6 +479,7 @@ namespace Interactive_Sort
                 }
             }
             button0.IsEnabled = true;
+            button1.IsEnabled = false;
             comboBox1.IsEnabled = true;
             CreatingSize.IsEnabled = true;
             Skipflag = false;
@@ -564,6 +569,7 @@ namespace Interactive_Sort
             CreatingSize.IsEnabled = true;
             comboBox1.IsEnabled = true;
             button0.IsEnabled = true;
+            button1.IsEnabled = false;
             Skipflag = false;
             SkipButton.IsEnabled = false;
         }
