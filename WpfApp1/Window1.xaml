@@ -36,7 +36,8 @@
 				<ColumnDefinition Width="130"></ColumnDefinition>
 				<ColumnDefinition ></ColumnDefinition>
 				<ColumnDefinition ></ColumnDefinition>
-				<ColumnDefinition ></ColumnDefinition>
+				<ColumnDefinition Width="65"></ColumnDefinition>
+                <ColumnDefinition ></ColumnDefinition>
 			</Grid.ColumnDefinitions>
 			<Grid.RowDefinitions>
 				<RowDefinition Height="35"></RowDefinition>
@@ -67,7 +68,9 @@
                        VerticalAlignment="Center" Height="16" Margin="0,10,0,12"/>
 			<TextBox x:Name="CreatingSize" Grid.Row="0" Grid.Column="5" Text="65" 
                      TextChanged="CreatingSize_TextChanged"  Margin="0,8,0,9" Background="Azure"/>
-		</Grid>
+            <TextBlock x:Name="Descriptioning_sort" Grid.Column="6" Grid.RowSpan="3" 
+                       TextAlignment="Justify" VerticalAlignment="Center" Text="122141245325532532535323"/>
+        </Grid>
 	</Canvas>
 
 </Window>
