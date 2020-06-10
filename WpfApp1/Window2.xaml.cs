@@ -84,38 +84,48 @@ namespace WpfApp1
         }
         private void Button3_Click(object sender, RoutedEventArgs e)
         {
-
-            PauseFlag = true;
-            N_in = Convert.ToInt32(textBox1.Text);
-            button1.IsEnabled = false;
-            button3.IsEnabled = false;
-            button4.IsEnabled = false;
-            DoEvents();
-            if (N_in < 0)
-                MessageBox.Show("N не может быть отрицательным!");
-            else
+            string valu=Convert.ToString(textBox1.Text);
+            bool success = Int32.TryParse(valu, out n_public);
+            if (success)
             {
-                n_public = N_in;
-                //проверка на то что элемент еще не посчитан
-                if (Prov_in_mass(n_public) == false)//проверка на вхождение в массив
-                {
-
-                    tf.Add(new TFData(n_public));
-                    listView1.ItemsSource = tf;
-                    listView1.Items.Refresh();
-                    numbers.Add(n_public);
-                    count++;
-                }
+                PauseFlag = true;
+                N_in = Convert.ToInt32(textBox1.Text);
+                button1.IsEnabled = false;
+                button3.IsEnabled = false;
+                button4.IsEnabled = false;
+                DoEvents();
+                if (N_in < 0)
+                    MessageBox.Show("N не может быть отрицательным!");
                 else
                 {
-                    MessageBox.Show("Это значение уже посчитано!");
-                }
-          
-            }
-            button1.IsEnabled = true;
-            button3.IsEnabled = true;
-            button4.IsEnabled = true;
+                    n_public = N_in;
+                    //проверка на то что элемент еще не посчитан
+                    if (Prov_in_mass(n_public) == false)//проверка на вхождение в массив
+                    {
 
+                        tf.Add(new TFData(n_public));
+                        listView1.ItemsSource = tf;
+                        listView1.Items.Refresh();
+                        numbers.Add(n_public);
+                        count++;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Это значение уже посчитано!");
+                    }
+
+                }
+                button1.IsEnabled = true;
+                button3.IsEnabled = true;
+                button4.IsEnabled = true;
+
+            }
+            else
+            {
+                MessageBox.Show("Некорректный ввод");
+            }
+
+            
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -146,8 +156,8 @@ namespace WpfApp1
         private void TextBox1_TextChanged(object sender, TextChangedEventArgs e)
         {
             //N_in = (TextBox)sender;
-            TextBox textBox = (TextBox)sender;
-            N_in = Convert.ToInt32(textBox.Text);
+            //TextBox textBox = (TextBox)sender;
+           // N_in = Convert.ToInt32(textBox.Text);
             //tf.Add(new TFData(N_in));
             //tf.Clear();
 
