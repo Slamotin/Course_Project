@@ -36,9 +36,8 @@
 				<ColumnDefinition Width="130"></ColumnDefinition>
 				<ColumnDefinition ></ColumnDefinition>
 				<ColumnDefinition ></ColumnDefinition>
-				<ColumnDefinition Width="65"></ColumnDefinition>
-                <ColumnDefinition ></ColumnDefinition>
-			</Grid.ColumnDefinitions>
+                <ColumnDefinition MinWidth="65"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
 			<Grid.RowDefinitions>
 				<RowDefinition Height="35"></RowDefinition>
 				<RowDefinition Height="30"></RowDefinition>
@@ -52,7 +51,7 @@
                 BorderThickness="0" Background="#FFEDF570" IsEnabled="False" Click="button2_Click"/>
 			<Label Content="Выбор сортировки: " Grid.Column="2" VerticalContentAlignment="Center"/>
 			<ComboBox x:Name="comboBox1" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Height="22" Margin="0,0" Width="87"
-                      Foreground="Black" Background="Blue" >
+                      Foreground="Black" Background="Blue" SelectionChanged="ComboBox1_SelectionChanged">
                 <ComboBox.Resources>
                     <SolidColorBrush x:Key ="{x:Static SystemColors.WindowBrushKey}"  Color="LightSeaGreen"/>
                 </ComboBox.Resources>
@@ -68,8 +67,9 @@
                        VerticalAlignment="Center" Height="16" Margin="0,10,0,12"/>
 			<TextBox x:Name="CreatingSize" Grid.Row="0" Grid.Column="5" Text="65" 
                      TextChanged="CreatingSize_TextChanged"  Margin="0,8,0,9" Background="Azure"/>
-            <TextBlock x:Name="Descriptioning_sort" Grid.Column="6" Grid.RowSpan="3" 
-                       TextAlignment="Justify" VerticalAlignment="Center" Text="122141245325532532535323"/>
+            <TextBlock x:Name="Complexity_block" Grid.Column="4" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"  Text="Сomplexity: "/>
+            <TextBlock x:Name="Descriptioning_sort" Grid.Column="5" Grid.Row="1"
+                       TextAlignment="Center" VerticalAlignment="Center" Text=""/>
         </Grid>
 	</Canvas>
 

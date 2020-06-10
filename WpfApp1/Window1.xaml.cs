@@ -305,7 +305,6 @@ namespace Interactive_Sort
             PauseFlag = false;
             button1.IsEnabled = true;
             button1.Content = "Start";
-           
 
             ButtonRainbow RnbwBtn = new ButtonRainbow(ArraySize);
             Random_Array = RnbwBtn.Random_Rainbow_Array;
@@ -577,6 +576,7 @@ namespace Interactive_Sort
         public Window1()
         {
             InitializeComponent();
+            ComboBox1_SelectionChanged(null, null);
             //ButtonRainbow BtnRnbw = new ButtonRainbow(canvas1);
 
         }
@@ -639,6 +639,26 @@ namespace Interactive_Sort
             else button0.IsEnabled = false;
         }
 
+        private void ComboBox1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (Descriptioning_sort != null)
+            {
+                switch (comboBox1.Text)
+                {
+                    case "ShakerSort":
+                        Descriptioning_sort.Text = "Worst О(n\x00B2); Medium О(n\x00B2)";
+                        break;
 
+                    case "InsertSort":
+                        Descriptioning_sort.Text = "Worst О(n\x00B2); Medium О(n\x00B2)";
+                        break;
+
+                    case "BubbleSort": 
+                        Descriptioning_sort.Text = "Worst О(n\x00B2); Medium О(n\x00B2) ";
+                        break;
+
+                }
+            }
+        }
     }
 }
