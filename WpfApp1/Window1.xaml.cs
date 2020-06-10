@@ -22,10 +22,12 @@ namespace Interactive_Sort
     
     public partial class Window1 : Window
     {
+        //description of your program
         public string description1 = "Представлены 3 алгоритма сортировки: сортировка вставками, сортировка пузырьком и шейкерная сортировка";
 
         /// <summary>For determinate number of buttons and count generation rainbow colors </summary>
         static int ArraySize;
+
         int Sorting_Delay;
         bool Skipflag = false;
         bool PauseFlag = false;
@@ -71,21 +73,16 @@ namespace Interactive_Sort
                 Random_Rainbow_Array = Non_RepeatingRandom(1, ArraySize - 1, ArraySize);
             }
 
-            /// <summary> Constructor for work with method on canvas </summary>
-            /// I save it for myself, do not delete them, now canvas1 transmit to CreateButtons() method 
+            /// <summary> Constructor for new size</summary>
             public ButtonRainbow(int NewArraySize)
             {
                 ArraySize = NewArraySize;
                 clrsOfRnbw64 = new ClrsOfRnbw64[NewArraySize];
                 Random_Rainbow_Array = new int[NewArraySize];
-                //_buttons = new Button[NewArraySize];
                 Random_Array = new int[NewArraySize];
                 GenerateColoursOfRainbow(NewArraySize);
                 Random_Rainbow_Array = Non_RepeatingRandom(1, NewArraySize - 1, NewArraySize);
-                //CreateButtons(canv);
             }
-
-            
 
             /// <summary> Return button object with determine button </summary>
             public Button GetButtons(int NumberOfButton)
@@ -105,6 +102,7 @@ namespace Interactive_Sort
 
                 //Because 360 it is again red color, 320 have violet color, 330 have pink color 
                 double step = 320 / ((double)ArraySize - 1);
+
                 //Filling array by colors of rainbow in cycle
                 for (int i = 1; (i <= ArraySize - 1) && (h <= 360); i++)
                 {
@@ -114,7 +112,7 @@ namespace Interactive_Sort
                     b = temp_rainbow_struct.B;
                     clrsOfRnbw64[i] = new ClrsOfRnbw64(r, g, b);
 
-                    //increment Hue from 0 to 320 (max 360) by some step (old version 64 steps from 5 to 320)
+                    //increment Hue from 0 to 320 (max 360) by some step
                     h += step;
                 }
             }
@@ -141,7 +139,6 @@ namespace Interactive_Sort
                     }
 
                 } while (i < SizeOfSourceArray);
-
                 return result_array;
             }
 
@@ -185,6 +182,7 @@ namespace Interactive_Sort
                             (byte)clrsOfRnbw64[SortableArray[ButtonNumber]].b));
             }
 
+            /// <summary> Change HSV colors to RGB colors </summary>
             public static Color HsvToRgb(double h, double s, double v)
             {
                 int Hi = (int)Math.Floor(h / 60.0) % 6;
@@ -233,69 +231,28 @@ namespace Interactive_Sort
             {
                 for (int i = 1; i <= _buttons.Length - 1; i++)
                     canvas1.Children.Remove(_buttons[i]);
-                ;
-                /*// Create a random non-repeatable array for mixing rainbow
-                Random_Rainbow_Array = Non_RepeatingRandom(1, ArraySize - 1, ArraySize);
-                */
+
                 _buttons = new Button[ArraySize];
                 for (int i = 1; i <= ArraySize - 1; i++)
                 {
-                    // _rand.Next(64)
                     _buttons[i] = new Button();
                     _buttons[i].Width = (canvas1.ActualWidth - 80) / (ArraySize - 1);
-                    //_buttons[i].Height = 270;
                     _buttons[i].Height = (canvas1.ActualHeight - 200);
                     _buttons[i].MinHeight = 10;
                     _buttons[i].BorderThickness = new Thickness(0);
-                    //_buttons[i].;
                     Canvas.SetTop(_buttons[i], 58);
                     Canvas.SetLeft(_buttons[i], 40 + (_buttons[i].Width * (i - 1)));
 
                     SetRandomRGBColorForButton(i, Random_Rainbow_Array);
                     canvas1.Children.Add(_buttons[i]);
 
-                    /*_labels0[i] = new Label();
-                    _labels0[i].Width = 20;
-                    _labels0[i].Height = 30;
-                    _labels0[i].FontSize = 7;
-                    _labels0[i].Content = Random_Rainbow_Array[i];
-                    Canvas.SetTop(_labels0[i], 298);
-                    Canvas.SetLeft(_labels0[i], 40 + (20 * (i - 1)) - 1);
-                    canvas1.Children.Add(_labels0[i]);
-
-                    _labels1[i] = new Label();
-                    _labels1[i].Width = 20;
-                    _labels1[i].Height = 30;
-                    _labels1[i].FontSize = 7;
-                    _labels1[i].Content = clrsOfRnbw64[Random_Rainbow_Array[i]].r;
-                    Canvas.SetTop(_labels1[i], 328);
-                    Canvas.SetLeft(_labels1[i], 40 + (20 * (i - 1)) - 1);
-                    canvas1.Children.Add(_labels1[i]);
-
-                    _labels2[i] = new Label();
-                    _labels2[i].Width = 20;
-                    _labels2[i].Height = 30;
-                    _labels2[i].FontSize = 7;
-                    _labels2[i].Content = clrsOfRnbw64[Random_Rainbow_Array[i]].g;
-                    Canvas.SetTop(_labels2[i], 358);
-                    Canvas.SetLeft(_labels2[i], 40 + (20 * (i - 1)) - 1);
-                    canvas1.Children.Add(_labels2[i]);
-
-                    _labels3[i] = new Label();
-                    _labels3[i].Width = 20;
-                    _labels3[i].Height = 30;
-                    _labels3[i].FontSize = 6;
-                    _labels3[i].Content = clrsOfRnbw64[Random_Rainbow_Array[i]].b;
-                    Canvas.SetTop(_labels3[i], 388);
-                    Canvas.SetLeft(_labels3[i], 40 + (20 * (i - 1)) - 1);
-                    canvas1.Children.Add(_labels3[i]);*/
-
-                    await Task.Delay(1); //создание радуги
+                    await Task.Delay(1); //Delay Creating Buttons
                 }
                 return;
             }
         }
 
+        //second array for sorting
         public int[] Random_Array;
 
         //обработчик кнопки build random rainbow
@@ -318,7 +275,6 @@ namespace Interactive_Sort
         //обработчик кнопки start
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            //button1.IsEnabled = false;
             CreatingSize.IsEnabled = false;
             comboBox1.IsEnabled = false;
             SkipButton.IsEnabled = true;
@@ -334,7 +290,6 @@ namespace Interactive_Sort
             }
             else
             {
-
                 label1.Content = "0";
                 label3.Content = "0";
                 switch (comboBox1.SelectionBoxItem.ToString())
@@ -364,25 +319,19 @@ namespace Interactive_Sort
             button1.IsEnabled = false;
         }
 
+        //Insert sort
         public async void InsertSort()
         {
             //Object of ButtonRaindbow class
             ButtonRainbow RnbwBtn = new ButtonRainbow(ArraySize);
             int[] Temp_Array = Random_Array;
             
-
-            /*for (int i = 1; i < Temp_Array.Length; i++)
-            {
-                string b = (string)label5.Content;
-                label5.Content = b + " " + Temp_Array[i];
-            }*/
             for (int i = 1; i < Temp_Array.Length; i++)
             {
                 SkipButton.IsEnabled = true;
                 label1.Content = i;
                 int j = 0;
-                //string a = (string)label4.Content;
-                //label4.Content = a + " " + Temp_Array[i];
+
                 for (j = i; j >= 2 &&
                     (Temp_Array[j - 1] > Temp_Array[j]); j--)
                 {
@@ -394,32 +343,6 @@ namespace Interactive_Sort
                     RnbwBtn.SetRGBColorForButton(j - 1, Temp_Array);
 
                     label3.Content = Int32.Parse(label3.Content.ToString()) + 1;
-
-                    //Animation for Labels
-
-                    /*Canvas.SetLeft(_buttons[j], 40 + (20 * (j-1)));
-                    Canvas.SetLeft(_buttons[j - 1], 40 + (20 * (j)));
-                    canvas1.Children.Remove(_buttons[i + 6]);
-                    canvas1.Children.Insert(i+6,_buttons[i]);
-
-                    Canvas.SetLeft(_labels0[j], 40 + (20 * (j - 1)));
-                    Canvas.SetLeft(_labels0[j - 1], 40 + (20 * (j)));
-
-                    Canvas.SetLeft(_labels1[j], 40 + (20 * (j - 1)));
-                    Canvas.SetLeft(_labels1[j - 1], 40 + (20 * (j)));
-
-                    Canvas.SetLeft(_labels2[j], 40 + (20 * (j - 1)));
-                    Canvas.SetLeft(_labels2[j - 1], 40 + (20 * (j)));
-
-                    Canvas.SetLeft(_labels3[j], 40 + (20 * (j - 1)));
-                    Canvas.SetLeft(_labels3[j - 1], 40 + (20 * (j)));*/
-
-                    /*Canvas.SetLeft(_buttons[i], 40 + (20 * (i + 1)));
-                    Canvas.SetLeft(_labels0[i], 40 + (20 * (i + 1)));
-                    Canvas.SetLeft(_labels1[i], 40 + (20 * (i + 1)));
-                    Canvas.SetLeft(_labels2[i], 40 + (20 * (i + 1)));
-                    Canvas.SetLeft(_labels3[i], 40 + (20 * (i + 1)));
-                    */
 
                     //Delay between iterations
                     do
@@ -484,7 +407,6 @@ namespace Interactive_Sort
             Skipflag = false;
             SkipButton.IsEnabled = false;
         }
-
 
         //шейкерная сортировка
         public async void ShakerSort()
@@ -577,19 +499,15 @@ namespace Interactive_Sort
         {
             InitializeComponent();
             ComboBox1_SelectionChanged(null, null);
-            //ButtonRainbow BtnRnbw = new ButtonRainbow(canvas1);
-
         }
 
         private void Window_Closed(object sender, EventArgs e)
         {
             Close();
-            
         }
 
         private void Canvas1_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-
             if (canvas1.ActualHeight - 115 > 125)
                 Canvas.SetTop(ButtonGrid, canvas1.ActualHeight - 110);
             ButtonRainbow temp_obj = new ButtonRainbow(ArraySize);
