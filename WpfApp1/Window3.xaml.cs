@@ -35,10 +35,17 @@ namespace HASH
     public partial class Window3 : Window
     {
         //Insert here your description 
-        public string description3 = "";
+        public string description3 = "Модуль демонстрации метода открытой адресации в хеш-таблице.";
         string[] arr = new string[11];
         Dictionary<int, TextBlock> myDict = new Dictionary<int, TextBlock>();
         Dictionary<int, TextBlock> myPointer = new Dictionary<int, TextBlock>();
+        Dictionary<int, TextBlock> myIndex = new Dictionary<int, TextBlock>();
+        
+        SortedSet<int> indset = new SortedSet<int>();
+        //SortedSet<int> indset2 = new SortedSet<int>();
+        Queue<int> indset2= new Queue<int>();
+
+
         bool dictExist = false;
         int newNum;
         int newIdx;
@@ -47,7 +54,22 @@ namespace HASH
         public Window3()
         {
             InitializeComponent();
+//            indset2.Clear;
             
+            myIndex.Clear();
+            myIndex.Add(0, t0);
+            myIndex.Add(1, t1);
+            myIndex.Add(2, t2);
+            myIndex.Add(3, t3);
+            myIndex.Add(4, t4);
+            myIndex.Add(5, t5);
+            myIndex.Add(6, t6);
+            myIndex.Add(7, t7);
+            myIndex.Add(8, t8);
+            myIndex.Add(9, t9);
+            myIndex.Add(10, t10);
+            //myIndex[0].Background= Brushes.;
+
         }
         private int Hash1(int val)
         {
@@ -457,17 +479,113 @@ namespace HASH
                         else
                         {
                             await delRight(delEl, delIdx);
-                            if (busycount < table_size)
-                            {
-                                button1.IsEnabled = true;
-                            }
+                            
+                        }
+                        if (busycount < table_size)
+                        {
+                            button1.IsEnabled = true;
+                        }
+                        if (busycount == 0)
+                        {
+                            Clear_Table();
                         }
                         break;
                     }
                 case "SquareProbe":
                     {
                         //считываем список значений с хешем таким же как и у удаляемого
+                        if(myDict[delIdx].Text != "x")
+                        {
+                            for (int i = 0; i < table_size; ++i)
+                            {
+                                indset.Add(i);
+                            }
 
+                            int ind = delIdx;
+                            int j = 1;
+                            
+                            while (true)
+                            {
+                                outputWindow.Text = "ind= " + ind.ToString();
+                                await Task.Delay(1000);
+                                if (indset.Contains(ind))
+                                {
+                                    
+                                    if ((myDict[ind].Text != "x"))
+                                    {
+                                        if (Int32.Parse(myDict[ind].Text) % table_size == delIdx)
+                                        {
+                                            indset2.Enqueue(ind);
+                                            
+
+                                        }
+                                        
+
+                                        
+                                    }
+                                    else
+                                    {
+                                        break;
+                                    }
+                                }
+                                else if(indset.Count()==0)
+                                {
+                                    break;
+                                }
+                                
+                                indset.Remove(ind);
+                                outputWindow.Text = (string)indset2.Count().ToString();
+                                await Task.Delay(1000);
+                                j++;
+                                ind = Hash1((ind * (int)System.Math.Pow(j, 2)) + j % 2);
+                            }
+                            outputWindow.Text = "j= "+j.ToString();
+                            await Task.Delay(1000);
+
+                            int index2,size2,next;
+                            size2 = indset2.Count();
+                            
+                            for (int i = 0; i < indset2.Count(); ++i)
+                            {
+                                index2 = indset2.Dequeue();
+                                outputWindow.Text = index2.ToString();
+                                await Task.Delay(1000);
+                                if (myDict[index2].Text== delEl)
+                                {
+                                    if (indset2.Count() != 0)
+                                    {
+                                        for (int z = 0; z < indset2.Count(); ++i)
+                                        {
+                                            next = indset2.Dequeue();
+                                            myDict[index2].Text = myDict[next].Text;
+                                            index2 = next;
+                                            if (indset2.Count() == 0)
+                                            {
+                                                break;
+                                            }
+                                        }
+                                        myDict[index2].Text = "x";
+                                    }
+                                    else
+                                    {
+                                        outputWindow.Text = "Сразу удаляем!";
+                                        myDict[index2].Text = "x";
+                                        busycount -= 1;
+                                        button1.IsEnabled = true;
+                                    }
+                                    
+                                    
+                                }
+                            }
+
+                            button1.IsEnabled = true;
+                        }
+                        else
+                        {
+                            outputWindow.Text = "Элемент не найден.";
+
+                            return;
+                        }
 
                         break;
                     }
@@ -481,6 +599,7 @@ namespace HASH
            
 
             button2.IsEnabled = true;
+            return;
             
         }
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
