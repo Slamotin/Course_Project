@@ -8,21 +8,22 @@
         Title="Window2" Height="450" Width="800"
         Closing="Window_Closing">
     <Grid Background="LightGray">
-        <ListView x:Name="listView1" VerticalAlignment="Top" Margin="10" >
+        <ListView x:Name="listView1" VerticalAlignment="Top" Height="350" Width="350"  Margin ="0 15 0 0">
             <ListView.View>
                 <GridView x:Name="gridView1">
-                    <GridViewColumn Header="N" DisplayMemberBinding="{Binding Path=N}"/>
-                    <GridViewColumn Header="Time" DisplayMemberBinding="{Binding Path=Time1}"/>
-                    <GridViewColumn Header="Time/N" DisplayMemberBinding="{Binding Path=Time_N}"/>   
+                    <GridViewColumn Header="N" DisplayMemberBinding="{Binding Path=N}" Width="70"/>
+                    <GridViewColumn Header="Time (ms) " DisplayMemberBinding="{Binding Path=Time1}" Width="70"/>
+                    <GridViewColumn Header="Time/N" DisplayMemberBinding="{Binding Path=Time_N}" Width="200"/>   
                 </GridView>
             </ListView.View>
-            
         </ListView>
         <DockPanel LastChildFill="True">
             <Button DockPanel.Dock="Left" x:Name="button1" Margin="10" Content="Старт" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="30" Click="Button1_Click" />
             <Button DockPanel.Dock="Left" x:Name="button2" Margin="10" Content="Стоп" HorizontalAlignment="Stretch"  Click="Button2_Click" VerticalAlignment="Bottom" Height="30" />
-            <Button DockPanel.Dock="Left" x:Name="button3" Margin="10" Content="Введите N" HorizontalAlignment="Stretch" VerticalAlignment="Bottom"  Height="30" Click="Button3_Click"/>
-            <TextBox DockPanel.Dock="Left" x:Name="textBox1" Margin="10"  HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Width="30" Height="30" TextChanged="TextBox1_TextChanged" />
+            <Button DockPanel.Dock="Left" x:Name="button4" Margin="10" Content="Очистить таблицу" HorizontalAlignment="Stretch"  Click="Button4_Click"  VerticalAlignment="Bottom" Height="30" />
+            <ProgressBar DockPanel.Dock="Left" x:Name="progressBar1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="40, 10, 40, 10" Width="250" Height="30" Foreground="Green"/>
+            <Button DockPanel.Dock="Left" x:Name="button3" Margin="0, 0, 0, 10" Content="Посчитать значение для N" HorizontalAlignment="Stretch" VerticalAlignment="Bottom"  Height="30" Click="Button3_Click"/>
+            <TextBox DockPanel.Dock="Left" x:Name="textBox1" Margin="10, 0, 10, 10" MaxLength="7" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Width="70" Height="30" TextChanged="TextBox1_TextChanged" PreviewTextInput="TextBox1_PreviewTextInput" />
 
         </DockPanel>
     </Grid>
